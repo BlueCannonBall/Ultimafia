@@ -34,6 +34,7 @@ import {
 } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { useErrorAlert } from "../../components/Alerts";
+import { useIsPhoneDevice } from "../../hooks/useIsPhoneDevice";
 import { UserContext, SiteInfoContext } from "../../Contexts";
 import { Avatar } from "../User/User";
 import { Loading } from "../../components/Loading";
@@ -88,7 +89,7 @@ export default function StockMarket() {
   const siteInfo = useContext(SiteInfoContext);
   const errorAlert = useErrorAlert();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useIsPhoneDevice();
 
   const [activeTab, setActiveTab] = useState(0);
   const [marketMode, setMarketMode] = useState("player"); // "player" | "family"
