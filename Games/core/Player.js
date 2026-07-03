@@ -1784,12 +1784,9 @@ module.exports = class Player {
       this.game.hadVegKill = true;
     }
 
-    this.game.resetLastDeath = true;
-    const currentPhase = this.game.getStateName();
-    if (currentPhase === "Night" || currentPhase === "Dawn") {
-      this.game.lastDeathState = "Night";
-    } else if (currentPhase === "Day" || currentPhase === "Dusk" || currentPhase === "Give Clue") {
-      this.game.lastDeathState = "Day";
+    const isNight = this.game.getStateName() === "Night" || this.game.getStateName() === "Dawn";
+    if (isNight || killType === "condemn") {
+      this.game.resetLastDeath = true;
     }
     this.game.queueDeath(this);
 

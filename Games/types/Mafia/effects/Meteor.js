@@ -14,7 +14,10 @@ module.exports = class Meteor extends Effect {
         }
       },
       death: function (player, killer, deathType, instant) {
-        this.remove();
+        const isNight = this.game.getStateName() === "Night" || this.game.getStateName() === "Dawn";
+        if (isNight || deathType === "condemn") {
+          this.remove();
+        }
       },
       afterActions: function () {
         for (let player of this.game.alivePlayers()) {

@@ -97,7 +97,7 @@ module.exports = class MafiaGame extends Game {
     this.noDeathLimit = this.setup.noDeathLimit;
     this.statesSinceLastDeath = 0;
     this.resetLastDeath = false;
-    this.lastDeathState = "Night";
+    this.resetStateName = this.getGameSetting("Day Start") ? "Day" : "Night";
     this.extensions = 0;
     this.extensionVotes = 0;
     this.hasBeenDay = false;
@@ -518,9 +518,8 @@ module.exports = class MafiaGame extends Game {
           this.queueAlert("No one has died for a while, you must act.");
         }
       }
-      if (this.statesSinceLastDeath >= this.noDeathLimit) {
-        const expectedState = this.lastDeathState === "Night" ? "Day" : "Night";
-        if (stateName === expectedState) {
+      if (this.statesSinceLastDeath >= this.noDeathLimit - 1) {
+        if (stateName === this.resetStateName) {
           let event = this.createGameEvent(this.GameEndEvent);
           event.doEvent();
           event = null;
@@ -529,6 +528,7 @@ module.exports = class MafiaGame extends Game {
     } else if (this.resetLastDeath) {
       this.statesSinceLastDeath = 0;
       this.resetLastDeath = false;
+      this.resetStateName = stateName;
       this.meteorImminent = false;
     }
   }
