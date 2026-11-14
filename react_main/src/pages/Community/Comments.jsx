@@ -176,7 +176,7 @@ export default function Comments(props) {
   );
 
   return (
-    <Stack direction="column" spacing={1}>
+    <Stack direction="column" spacing={2}>
       <div className="comments-input-wrapper">
         {!showInput && topBar}
         {showInput && (

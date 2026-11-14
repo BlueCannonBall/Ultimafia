@@ -68,9 +68,14 @@
     "build": "rsbuild build",
     "preview": "rsbuild preview",
     "lint": "eslint src && npm run lint:ui",
-    "lint:ui": "node scripts/check-ui-architecture.cjs",
+    "lint:ui": "node scripts/check-ui-architecture.cjs && node scripts/check-ui-scale-debt.cjs",
     "audit:ui": "node test/run-ui-audit.cjs",
-    "test:strategy-windows:browser": "rsbuild build --config rsbuild.strategy-windows-test.config.ts && node test/run-strategy-windows.cjs"
+    "ui:families": "node test/run-ui-families.cjs",
+    "ui:dialogs": "node test/run-ui-dialogs.cjs",
+    "test:strategy-windows:browser": "rsbuild build --config rsbuild.strategy-windows-test.config.ts && node test/run-strategy-windows.cjs",
+    "ui:debt": "node scripts/check-ui-scale-debt.cjs --queue",
+    "ui:debt:update": "node scripts/check-ui-scale-debt.cjs --update",
+    "ui:shots": "node test/capture-ui-shots.cjs"
   },
   "eslintConfig": {
     "extends": [

@@ -17,6 +17,7 @@ import {
   getLosses,
   getAbandons,
 } from "utils/mafiaStats";
+import { confirmAction } from "components/ui";
 
 function Miniprofile(props) {
   const user = props.user;
@@ -74,12 +75,12 @@ function Miniprofile(props) {
     setIsFriendRequested(user.isFriendRequested || false);
   }, [user.isFriend, user.isFriendRequested]);
 
-  function onFriendUserClick() {
+  async function onFriendUserClick() {
     if (isFriend || isFriendRequested) {
       var confirmMsg = isFriend
         ? "Are you sure you wish to unfriend this user?"
         : "Are you sure you wish to cancel your friend request?";
-      if (!window.confirm(confirmMsg)) return;
+      if (!await confirmAction(confirmMsg)) return;
     }
 
     axios

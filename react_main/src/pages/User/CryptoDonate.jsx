@@ -11,6 +11,7 @@ import {
 import { QRCodeSVG } from "qrcode.react";
 import { SiteInfoContext, UserContext } from "../../Contexts";
 import { useErrorAlert } from "../../components/Alerts";
+import { confirmAction } from "components/ui";
 
 const NETWORKS = [
   {
@@ -158,7 +159,7 @@ function InvoiceCard({ invoice, onUpdated, onRemoved }) {
 
   async function cancelInvoice() {
     if (!invoice?.id) return;
-    if (!window.confirm("Cancel this invoice? You can still contact staff if you already sent payment.")) {
+    if (!await confirmAction("Cancel this invoice? You can still contact staff if you already sent payment.")) {
       return;
     }
     setBusy(true);

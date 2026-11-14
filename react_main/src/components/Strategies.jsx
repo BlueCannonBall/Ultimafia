@@ -33,6 +33,7 @@ import { useStrategyWindows } from "components/strategyWindows/StrategyWindowsCo
 import UiAction from "./ui/UiAction";
 import UiIcon from "./ui/UiIcon";
 import { UiSection } from "./ui";
+import { confirmAction } from "components/ui";
 
 function sortStrategies(strategies) {
   if (!Array.isArray(strategies)) return [];
@@ -261,12 +262,12 @@ function StrategiesBase({
     }
   };
 
-  const handleDeleteToggle = (strategy, shouldDelete) => {
+  const handleDeleteToggle = async (strategy, shouldDelete) => {
     if (!strategy?.id) return;
 
     if (
       shouldDelete &&
-      !window.confirm("Are you sure you wish to delete this strategy?")
+      !await confirmAction("Are you sure you wish to delete this strategy?")
     ) {
       return;
     }

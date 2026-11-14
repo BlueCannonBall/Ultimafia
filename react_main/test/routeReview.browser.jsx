@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Header, Footer } from "../src/Main";
 import SiteLayout from "../src/components/SiteLayout";
+import { ConfirmHost } from "../src/components/ui";
 import { SheetProvider } from "../src/components/Sheet";
 import { ProfileSheetProvider } from "../src/components/ProfileSheet";
 import ViewOverlayBoundary from "../src/components/ViewOverlayBoundary";
@@ -166,7 +167,7 @@ function App() {
           </Routes>
         </RouteBoundary></Suspense>
       </main>
-    </SiteLayout></ViewOverlayBoundary>
+    </SiteLayout><ConfirmHost /></ViewOverlayBoundary>
   </ViewActivityContext.Provider></AppLocationContext.Provider>;
 }
 const light = params.get("theme") === "light";

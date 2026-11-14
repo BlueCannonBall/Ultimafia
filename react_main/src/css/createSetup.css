@@ -27,6 +27,13 @@
 .setup-role-set .roleset > .MuiStack-root { flex-wrap: wrap; gap: 8px; }
 .setup-role-set .roleset > .MuiStack-root > .MuiStack-root { flex-basis: 100%; }
 .setup-settings-step[hidden] { display: none; }
+.setup-empty-step { grid-column: 1 / -1; }
+.setup-settings-grid .MuiFormControlLabel-root { margin-left: 0; }
+.setup-settings-grid { --ui-setup-columns: 1fr; display: grid; gap: 16px; align-items: start; grid-template-columns: var(--ui-setup-columns); }
+@media (min-width: 900px) {
+  .setup-settings-grid { --ui-setup-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .setup-settings-grid--single { --ui-setup-columns: 1fr; }
+}
 @media (min-width: 1100px) {
   .setup-wizard[data-step="0"] { grid-template-columns: minmax(0, 1fr) 320px; }
   .setup-wizard > .setup-name-field, .setup-wizard > .setup-step-list, .setup-wizard > nav, .setup-wizard > .setup-settings-step { grid-column: 1 / -1; }
@@ -41,6 +48,7 @@
   }
   .setup-wizard[data-step="0"] > .setup-catalog { grid-column: 1; grid-row: 3 / span 2; }
   .setup-wizard[data-step="0"] > .setup-role-set-actions { grid-column: 2; }
+  .setup-wizard[data-step="0"] > .setup-footer { grid-column: 1 / -1; grid-row: 5; }
 }
 
 @media (max-width: 700px) {

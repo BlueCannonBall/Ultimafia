@@ -17,6 +17,7 @@ import {
 import { UserContext } from "Contexts";
 import { useErrorAlert } from "./Alerts";
 import ImageViewer from "./ImageViewer";
+import { confirmAction } from "components/ui";
 
 export default function FanartPanel({ roleId }) {
   const user = useContext(UserContext);
@@ -110,10 +111,10 @@ export default function FanartPanel({ roleId }) {
   const canCreate =
     user && user.loggedIn && user.perms && user.perms.postReply && roleId;
 
-  function onDelete(item) {
+  async function onDelete(item) {
     if (!item?.id) return;
     if (
-      !window.confirm(
+      !await confirmAction(
         "Are you sure you wish to delete this fanart? This cannot be undone."
       )
     )

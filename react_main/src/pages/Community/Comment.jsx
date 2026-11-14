@@ -13,6 +13,7 @@ import { NameWithAvatar } from "../User/UserWidgets";
 
 import { Box, IconButton } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { confirmAction } from "components/ui";
 
 export const Comment = (props) => {
   const theme = useTheme();
@@ -28,8 +29,8 @@ export const Comment = (props) => {
 
   var content = comment.content;
 
-  function onDeleteClick() {
-    const shouldDelete = window.confirm(
+  async function onDeleteClick() {
+    const shouldDelete = await confirmAction(
       "Are you sure you wish to delete this?"
     );
 

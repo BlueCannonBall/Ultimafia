@@ -9,9 +9,11 @@
 .family-page-layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 24px; align-items: start; }
 .family-main, .family-rail { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
 .family-comments { min-width: 0; }
-.family-comments > h2 { margin: 0 0 10px; font-size: var(--ui-text-heading); line-height: var(--ui-line-heading); font-weight: 700; }
+.family-comments > h2 { margin: 0 0 16px; font-size: var(--ui-text-heading); line-height: var(--ui-line-heading); font-weight: 700; }
 @media (max-width: 1000px) {
-  .family-page-layout { grid-template-columns: minmax(0, 1fr); }
+  /* One column: the column gap becomes a card gap and must match the 16px
+     rhythm inside each column. */
+  .family-page-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
 }
 .family-profile-panel .md-content .media-embed-wrap,
 .family-profile-panel .md-content .video-responsive-generic { max-width: min(100%, 800px); margin-inline: auto; }

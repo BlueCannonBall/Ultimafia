@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { UiSection, UiAction, UiField, UiStatRow, UiStat, UiPageHeader, UiTabs, UiTab, UiTable } from "components/ui";
+import { UiSection, UiAction, UiField, UiStatRow, UiStat, UiPageHeader, UiTabs, UiTab, UiTable, confirmAction } from "components/ui";
 import {
   Link as RouterLink,
   Route,
@@ -274,8 +274,8 @@ export function SetupPage() {
     navigate(`/play/create?copy=${s.id}&game=${s.gameType}`);
   }
 
-  function onDelSetup(s) {
-    if (!window.confirm("Are you sure you want to delete this setup?")) return;
+  async function onDelSetup(s) {
+    if (!await confirmAction("Are you sure you want to delete this setup?")) return;
     axios
       .post("/api/setup/delete", { id: s.id })
       .then(() => navigate("/play"))
@@ -286,10 +286,10 @@ export function SetupPage() {
   const canToggleComp = !!user.perms?.approveCompetitive;
   const canArchive = !!user.perms?.archiveSetup;
 
-  function onArchiveSetup() {
+  async function onArchiveSetup() {
     if (!canArchive) return;
     if (
-      !window.confirm(
+      !await confirmAction(
         "Archive this setup? Ownership will transfer to the archive user."
       )
     )

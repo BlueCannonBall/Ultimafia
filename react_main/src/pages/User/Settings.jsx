@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { UiPage, UiAction, UiSection, UiIcon, UiSectionNav, UiSectionNavItem } from "components/ui";
+import { UiPage, UiAction, UiSection, UiIcon, UiSectionNav, UiSectionNavItem, confirmAction } from "components/ui";
 import { Link, Route, Routes } from "react-router-dom";
 import { ViewNavigate as Navigate, useViewNavigate as useNavigate } from "hooks/useViewActivity";
 import axios from "axios";
@@ -1747,9 +1747,9 @@ export default function Settings() {
       .catch(deps.errorAlert);
   }
 
-  function onBirthdayClear(deps) {
+  async function onBirthdayClear(deps) {
     if (
-      !window.confirm(
+      !await confirmAction(
         "Are you sure you want to clear your birthday? You won't be able to set it again without asking a moderator."
       )
     ) {
@@ -1906,8 +1906,8 @@ export default function Settings() {
       .catch(deps.errorAlert);
   }
 
-  function onVanityUrlClear(deps) {
-    if (!window.confirm("Are you sure you want to clear your vanity URL?")) {
+  async function onVanityUrlClear(deps) {
+    if (!await confirmAction("Are you sure you want to clear your vanity URL?")) {
       return;
     }
 
@@ -2014,8 +2014,8 @@ export default function Settings() {
     return true;
   }
 
-  function onForumBannerRemove() {
-    if (!window.confirm("Are you sure you wish to remove your forum banner?")) {
+  async function onForumBannerRemove() {
+    if (!await confirmAction("Are you sure you wish to remove your forum banner?")) {
       return;
     }
 
@@ -2067,9 +2067,9 @@ export default function Settings() {
       });
   }
 
-  function onProfileBackgroundRemove() {
+  async function onProfileBackgroundRemove() {
     if (
-      !window.confirm(
+      !await confirmAction(
         "Are you sure you wish to remove your profile background?"
       )
     ) {
@@ -2138,8 +2138,8 @@ export default function Settings() {
       .catch(errorAlert);
   }
 
-  function onDeleteClick() {
-    if (window.confirm("Are you sure you wish to **DELETE** your account?")) {
+  async function onDeleteClick() {
+    if (await confirmAction("Are you sure you wish to **DELETE** your account?")) {
       axios
         .post("/api/user/delete")
         .then(() => {
@@ -2246,9 +2246,9 @@ export default function Settings() {
       .catch(errorAlert);
   }
 
-  function onFamilyBannerRemove() {
+  async function onFamilyBannerRemove() {
     if (!userFamily?.id) return;
-    if (!window.confirm("Remove the family banner?")) return;
+    if (!await confirmAction("Remove the family banner?")) return;
     axios
       .delete(`/api/family/${userFamily.id}/banner`)
       .then(() => {
@@ -2280,14 +2280,14 @@ export default function Settings() {
       .catch(errorAlert);
   }
 
-  function onTransferLeadership() {
+  async function onTransferLeadership() {
     if (!transferLeaderUserId) {
       siteInfo.showAlert("Please select a family member", "error");
       return;
     }
 
     if (
-      !window.confirm(
+      !await confirmAction(
         "Are you sure you want to transfer leadership? You will lose the ability to manage the family."
       )
     ) {
@@ -2306,9 +2306,9 @@ export default function Settings() {
       .catch(errorAlert);
   }
 
-  function onDeleteFamily() {
+  async function onDeleteFamily() {
     if (
-      !window.confirm(
+      !await confirmAction(
         "Are you sure you want to delete your family? This will remove all members and cannot be undone."
       )
     ) {
@@ -2327,9 +2327,9 @@ export default function Settings() {
       .catch(errorAlert);
   }
 
-  function onLeaveFamily() {
+  async function onLeaveFamily() {
     if (
-      !window.confirm(
+      !await confirmAction(
         "Are you sure you want to leave this family? You will need to be re-invited to rejoin."
       )
     ) {
@@ -2353,9 +2353,9 @@ export default function Settings() {
     return true;
   }
 
-  function onFamilyBackgroundRemove() {
+  async function onFamilyBackgroundRemove() {
     if (
-      !window.confirm("Are you sure you wish to remove the family background?")
+      !await confirmAction("Are you sure you wish to remove the family background?")
     ) {
       return;
     }

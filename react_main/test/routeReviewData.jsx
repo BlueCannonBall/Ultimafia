@@ -16,7 +16,16 @@ export const people = ["NightOwl", "Juniper", "Moth", "Rook", "Velvet", "Sol"].m
   settings: {}, joined: fixtureTime - 86400000 * 400, status: "online",
 }));
 const roleRecords = Object.entries(fullMafiaRoles).map(([name, role]) => ({ name, ...role }));
-export const rolesRaw = { Mafia: Object.fromEntries(roleRecords.map(role => [role.name, role])) };
+// A second game with roles, so the shared editor's roles step is exercised for
+// non-Mafia games instead of only the Mafia fixture.
+const jottoRoleRecords = [
+  { name: "Word Picker", alignment: "Town", description: ["Choose the secret word for this round."], tags: ["Basic"], skins: [], SpecialInteractions: {} },
+  { name: "Guesser", alignment: "Town", description: ["Guess the secret word before the round ends."], tags: ["Basic"], skins: [], SpecialInteractions: {} },
+];
+export const rolesRaw = {
+  Mafia: Object.fromEntries(roleRecords.map(role => [role.name, role])),
+  Jotto: Object.fromEntries(jottoRoleRecords.map(role => [role.name, role])),
+};
 export const modifiers = namedRecords(modifierData);
 export const setups = ["Classic", "Follow the visits", "A small town", "Night investigation", "Open discussion"].map((name, i) => ({
   id: `fixture-setup-${i}`, name, gameType: "Mafia", total: 7 + i, closed: false,
@@ -88,6 +97,7 @@ export function profile(id) {
     joined: fixtureTime - 86400000 * (minimal ? 2 : 400), status: minimal ? "offline" : "online",
     lastActive: fixtureTime - 600000, inGame: id === "fixture-default" ? "fixture-game" : null, saved: false, isFriend: false, isFriendRequested: false,
     family: minimal ? null : { id: "fixture-family", name: "The Harbor", avatar: false },
+    stockInfo: id === "fixture-default" ? { shareSupply: 50, sharesOwned: 4, buyPrice: 26.65, marketCap: 1250, dividendsPaidOut: 8, priceHistory: [10, 12, 15, 20, 25] } : null,
   };
 }
 const replies = ["We should compare the claims before the next vote.", "Agreed. The order of night actions matters here.", "Thanks for the explanation; the role details helped."].map((content, i) => ({
@@ -132,7 +142,7 @@ export function makeUser(mode = "member") {
 }
 export function makeSiteInfo(record) {
   return {
-    cacheVal: 1, rolesRaw, roles: { Mafia: roleRecords }, modifiers,
+    cacheVal: 1, rolesRaw, roles: { Mafia: roleRecords, Jotto: jottoRoleRecords }, modifiers,
     gamesettings: namedRecords(settingData),
     gameSettings: { Mafia: {} }, items: namedRecords(itemData), tags: namedRecords(tagData),
     learnGameDescriptionByType: { Mafia: [{ type: "paragraph", content: "Mafia is a social deduction game. The village discusses claims and votes during the day; the mafia meets at night." }] },

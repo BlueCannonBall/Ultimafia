@@ -104,7 +104,7 @@ function Overview({ roundInfo, seasonInfo }) {
           </Select>
         </FormControl>
       </Stack>
-      <Grid2 container columns={isPhoneDevice ? 1 : 2} spacing={1}>
+      <Grid2 container columns={isPhoneDevice ? 1 : 2} spacing={2}>
         <Grid2 size={1}>
           <Paper elevation={2} sx={{
             p: 2,

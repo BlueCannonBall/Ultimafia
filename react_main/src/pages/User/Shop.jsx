@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef, useMemo } from "react";
-import { UiPage, UiSection, UiProductCard } from "components/ui";
+import { UiPage, UiSection, UiProductCard, confirmAction } from "components/ui";
 import { useLocation } from "react-router-dom";
 import { ViewNavigate as Navigate } from "hooks/useViewActivity";
 import axios from "axios";
@@ -282,9 +282,9 @@ export default function Shop(props) {
       });
   };
 
-  function onBuyItem(index) {
+  async function onBuyItem(index) {
     const item = shopInfo.shopItems[index];
-    const shouldBuy = window.confirm(
+    const shouldBuy = await confirmAction(
       `Are you sure you wish to buy ${item.name} for ${item.price.toFixed(2)} coins?`
     );
 
@@ -652,8 +652,8 @@ export default function Shop(props) {
               const stampItem = shopInfo.shopItems[stampIndex];
               axios
                 .post("/api/shop/checkStampEligibility", { gameId })
-                .then((eligibility) => {
-                  const shouldBuy = window.confirm(
+                .then(async (eligibility) => {
+                  const shouldBuy = await confirmAction(
                     `You will receive a stamp for ${eligibility.data.role}. Purchase for ${stampItem.price.toFixed(2)} coins?`
                   );
                   if (!shouldBuy) return;

@@ -43,6 +43,7 @@ import {
 import { MuiColorInput } from 'mui-color-input'
 import { useIsPhoneDevice } from "hooks/useIsPhoneDevice";
 import { LatestRequest } from "../lib/latestRequest";
+import { confirmAction } from "components/ui";
 
 const UNGROUPED_NAME = "__UNGROUPED__";
 let nextFieldId = 0;
@@ -102,8 +103,8 @@ function FormField({
     </>
   );
 
-  function saveBtnOnClick(e) {
-    let conf = !field.confirm || window.confirm(field.confirm);
+  async function saveBtnOnClick(e) {
+    let conf = !field.confirm || await confirmAction(field.confirm);
 
     if (conf) {
       if (field.saveBtnOnClick) field.saveBtnOnClick(field.value, deps);

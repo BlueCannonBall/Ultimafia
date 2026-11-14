@@ -104,17 +104,43 @@ export function getSiteTheme(
         sx: { textTransform: "none" },
       },
       styleOverrides: {
-        root: { textTransform: "none", fontSize: uiTokens.type.body, fontWeight: uiTokens.weight.strong, lineHeight: uiTokens.lineHeight.action, borderRadius: uiTokens.control.radius, minHeight: uiTokens.control.height, boxShadow: "none", "&:hover": { boxShadow: "none" }, "@media (pointer: coarse)": { minHeight: uiTokens.control.touchHeight } },
+        root: { textTransform: "none", fontSize: uiTokens.type.body, fontWeight: uiTokens.weight.strong, lineHeight: uiTokens.lineHeight.action, borderRadius: uiTokens.control.radius, "&.MuiButton-root.MuiButton-text": { borderRadius: "var(--ui-radius-control)" }, minHeight: uiTokens.control.height, boxShadow: "none", "&:hover": { boxShadow: "none" }, "@media (pointer: coarse)": { minHeight: uiTokens.control.touchHeight } },
+        text: { borderRadius: "var(--ui-radius-control)" },
         containedPrimary: { boxShadow: "var(--ui-primary-shadow)", transition: "background-color 120ms", "&:hover": { boxShadow: "var(--ui-primary-shadow)" }, "&:active": { transform: "translateY(var(--ui-primary-pressed-offset))", boxShadow: "var(--ui-primary-pressed-shadow)" }, "&.Mui-disabled": { boxShadow: "none", transform: "none" } },
       },
     },
     MuiPaper: { styleOverrides: { root: { backgroundImage: "none", boxShadow: "none" } } },
+    MuiIconButton: {
+      styleOverrides: {
+        root: { width: "var(--ui-icon-height)", height: "var(--ui-icon-height)", padding: 0, "@media (pointer: coarse)": { width: "var(--ui-touch-height)", height: "var(--ui-touch-height)" } },
+        sizeSmall: { width: "var(--ui-icon-height)", height: "var(--ui-icon-height)", padding: 0 },
+      },
+    },
+    MuiStepButton: {
+      styleOverrides: {
+        root: { "&.MuiStepButton-root.MuiStepButton-horizontal": { boxSizing: "border-box", padding: "0 8px", height: "var(--ui-action-height)", minHeight: "var(--ui-action-height)" }, "& .MuiStepLabel-label": { fontSize: uiTokens.type.small } },
+      },
+    },
+    MuiToggleButtonGroup: {
+      styleOverrides: {
+        root: {
+          "&.MuiToggleButtonGroup-root .MuiToggleButtonGroup-grouped:first-of-type": { borderTopLeftRadius: "var(--ui-radius-control)", borderBottomLeftRadius: "var(--ui-radius-control)" },
+          "&.MuiToggleButtonGroup-root .MuiToggleButtonGroup-grouped:last-of-type": { borderTopRightRadius: "var(--ui-radius-control)", borderBottomRightRadius: "var(--ui-radius-control)" },
+        },
+      },
+    },
+    MuiToggleButton: {
+      styleOverrides: {
+        root: { minHeight: "var(--ui-icon-height)", paddingTop: 0, paddingBottom: 0, fontSize: uiTokens.type.small },
+      },
+    },
     MuiCard: { styleOverrides: { root: { border: "1px solid var(--mui-palette-divider)" } } },
-    MuiDialog: { styleOverrides: { paper: { border: "1px solid var(--mui-palette-divider)", borderRadius: 8 }, container: { height: "calc(100% - var(--app-top, 0px) - var(--app-bottom, 0px))", marginTop: "var(--app-top, 0px)" } } },
+    MuiDialog: { styleOverrides: { paper: { border: "1px solid var(--mui-palette-divider)", borderRadius: uiTokens.radius.dialog }, container: { height: "calc(100% - var(--app-top, 0px) - var(--app-bottom, 0px))", marginTop: "var(--app-top, 0px)" } } },
     MuiDialogTitle: { styleOverrides: { root: { fontSize: uiTokens.type.heading, fontWeight: uiTokens.weight.strong, lineHeight: uiTokens.lineHeight.heading, padding: "8px 20px" } } },
     MuiDialogActions: { styleOverrides: { root: { padding: "16px 24px", gap: 8, flexWrap: "wrap" } } },
     MuiMenu: { styleOverrides: { paper: { marginTop: 6, border: "1px solid var(--mui-palette-divider)", boxShadow: "0 12px 40px #0005" } } },
-    MuiOutlinedInput: { styleOverrides: { root: { borderRadius: 5 } } },
+    MuiAlert: { styleOverrides: { root: { padding: "8px 16px" } } },
+    MuiOutlinedInput: { styleOverrides: { root: { borderRadius: uiTokens.radius.control } } },
     MuiTableCell: { styleOverrides: { root: { padding: "14px 16px", borderColor: "var(--mui-palette-divider)", lineHeight: 1.6 }, head: { fontWeight: 700, background: "var(--scheme-color-sec)" } } },
     MuiButtonBase: {
       defaultProps: {
@@ -169,10 +195,11 @@ export function getSiteTheme(
     MuiTab: {
       styleOverrides: {
         root: ({ theme }) => ({
-          textTransform: "none", fontSize: uiTokens.type.small, fontWeight: uiTokens.weight.strong, minHeight: uiTokens.control.height,
+          textTransform: "none", fontSize: uiTokens.type.small, fontWeight: uiTokens.weight.strong,
+          minHeight: "var(--ui-action-height)", height: "var(--ui-action-height)", padding: "0 16px",
           // Phones need the touch height, not the desktop control height. Game
           // meeting tabs keep their own denser override.
-          [theme.breakpoints.down("sm")]: { minHeight: uiTokens.control.touchHeight },
+          [theme.breakpoints.down("sm")]: { minHeight: "var(--ui-touch-height)", height: "var(--ui-touch-height)" },
           "&:focus-visible": {
             outline: "2px solid var(--mui-palette-primary-main)",
             outlineOffset: "2px",

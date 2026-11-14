@@ -9,7 +9,7 @@ import { useErrorAlert } from "components/Alerts";
 import Setup from "components/Setup";
 import HostGameDialogue from "components/HostGameDialogue";
 import { PlayerCount } from "./PlayerCount";
-import { UiAction, UiIcon } from "components/ui";
+import { UiAction, UiIcon, confirmAction } from "components/ui";
 import { getRowStubColor } from "./gameRowColors";
 
 export function GameStatus({ game, tools }) {
@@ -69,8 +69,8 @@ export function GameRow({ game, showLobbyName, showGameState, small }) {
   const canRehost = !small && game.status === "Finished" && user.loggedIn;
   if (!game.setup) return null;
 
-  function breakGame() {
-    if (!canBreak || !window.confirm("Break this game? This cannot be undone.")) return;
+  async function breakGame() {
+    if (!canBreak || !await confirmAction("Break this game? This cannot be undone.")) return;
     axios.post("/api/mod/breakGame", { gameId: game.id })
       .then(() => siteInfo.showAlert("Game broken.", "success")).catch(errorAlert);
   }

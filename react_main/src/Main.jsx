@@ -26,6 +26,7 @@ import {
 } from "./Contexts";
 import { getSiteTheme } from "./constants/themes";
 import { AlertList, useErrorAlert } from "./components/Alerts";
+import { ConfirmHost } from "./components/ui";
 import { ConnectionBanner } from "./components/ConnectionBanner";
 import UserNavSection from "./pages/User/UserNavSection";
 import CookieBanner from "./components/CookieBanner";
@@ -273,6 +274,7 @@ function Main(props) {
               {gameSession}
             </ViewActivityContext.Provider>
             <AlertList />
+            <ConfirmHost />
             <ConnectionBanner />
             <FloatingStrategyWindows />
           </ProfileSheetProvider>

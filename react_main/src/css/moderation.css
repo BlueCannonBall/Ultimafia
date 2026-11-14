@@ -38,11 +38,11 @@
 .moderation-group-member { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 38px; padding: 4px 8px; border-radius: var(--ui-radius); background: var(--scheme-color-sec); border: 1px solid var(--scheme-color-border); min-width: 0; }
 .moderation-group-member > :first-child { min-width: 0; flex: 1 1 auto; }
 .moderation-command-options { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 2px 12px; }
-.moderation-command-option { display: flex; justify-content: flex-start; width: 100%; min-height: 32px; padding: 4px 8px; border-radius: 3px; font-family: var(--ui-font-mono, monospace); font-size: var(--ui-text-small); text-align: left; }
+.moderation-command-option { display: flex; justify-content: flex-start; width: 100%; min-height: 32px; padding: 4px 8px; border-radius: var(--ui-radius-control); font-family: var(--ui-font-mono, monospace); font-size: var(--ui-text-small); text-align: left; }
 .moderation-action-list { display: flex; flex-direction: column; }
 .moderation-action-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 12px 0; border-bottom: 1px solid var(--scheme-color-border); }
 .moderation-action-heading { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; min-width: 0; }
-.moderation-action-row .moderation-command { display: inline-block; width: fit-content; padding: 1px 5px; border-radius: 3px; background: var(--scheme-color-sec); font-family: var(--ui-font-mono, monospace); font-size: var(--ui-text-small); overflow-wrap: anywhere; }
+.moderation-action-row .moderation-command { display: inline-block; width: fit-content; padding: 1px 5px; border-radius: var(--ui-radius-card); background: var(--scheme-color-sec); font-family: var(--ui-font-mono, monospace); font-size: var(--ui-text-small); overflow-wrap: anywhere; }
 .moderation-action-row time { color: var(--um-muted); font-size: var(--ui-text-caption); white-space: nowrap; }
 .moderation-action-args { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px 20px; padding-top: 4px; }
 .moderation-action-arg { min-width: 0; }

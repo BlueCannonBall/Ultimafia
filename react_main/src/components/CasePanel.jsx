@@ -57,7 +57,7 @@ export default function CasePanel({
 
   if (wrapInPanel) {
     return (
-      <div className={className} style={panelStyle}>
+      <div className={`ui-card ${className}`.trim()} style={panelStyle}>
         {content}
       </div>
     );

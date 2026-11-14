@@ -5,9 +5,9 @@ import { Link, useParams } from "react-router-dom";
 import { ViewNavigate as Navigate, useViewNavigate as useNavigate } from "hooks/useViewActivity";
 import axios from "axios";
 import update from "immutability-helper";
-import colorContrast from "color-contrast";
-import { UiCard, UiPage, UiPageHeader } from "components/ui";
+import { UiCard, UiPage, UiPageHeader, confirmAction } from "components/ui";
 import ProfileStatsSummary from "./ProfileStatsSummary";
+const PieChart = lazy(() => import("./PieChart").then((module) => ({ default: module.PieChart })));
 
 import { UserContext, SiteInfoContext } from "Contexts";
 import {
@@ -132,7 +132,7 @@ function FavoritedRolesPanel({
       title={`Favorited Roles`}
       panelStyle={panelStyle}
       headingStyle={headingStyle}
-      className="box-panel favorited-roles"
+      className="box-panel ui-card favorited-roles"
       emptyMessage="No favorited roles"
     >
       {items.map(({ gameType, roleName, id }) => (
@@ -166,7 +166,7 @@ function RoleIconCreditsPanel({
       title={`Role Icon Credits (${items.length})`}
       panelStyle={panelStyle}
       headingStyle={headingStyle}
-      className="box-panel role-icon-credits"
+      className="box-panel ui-card role-icon-credits"
       emptyMessage="No role icon credits"
     >
       {items.map(({ roleName, skin, key }) => (
@@ -507,11 +507,11 @@ export default function Profile() {
     return true;
   }
 
-  function onClearBanner(e) {
+  async function onClearBanner(e) {
     e.stopPropagation();
     e.preventDefault();
     if (
-      !window.confirm(
+      !await confirmAction(
         "Remove your profile banner?"
       )
     ) {
@@ -568,9 +568,9 @@ export default function Profile() {
     }
   }
 
-  function onAvatarRemove() {
+  async function onAvatarRemove() {
     if (
-      !window.confirm(
+      !await confirmAction(
         "Remove your avatar and return to the default letter avatar?"
       )
     ) {
@@ -587,9 +587,9 @@ export default function Profile() {
       .catch(errorAlert);
   }
 
-  function onFriendUserClick() {
+  async function onFriendUserClick() {
     if (isFriend || isFriendRequested) {
-      var shouldUnfriend = window.confirm(
+      var shouldUnfriend = await confirmAction(
         "Are you sure you wish to unfriend or cancel your friend request?"
       );
       if (!shouldUnfriend) return;
@@ -611,8 +611,8 @@ export default function Profile() {
   }
 
   function onDeleteFriend(friendId) {
-    return () => {
-      var shouldUnfriend = window.confirm(
+    return async () => {
+      var shouldUnfriend = await confirmAction(
         "Are you sure you wish to delete this friend?"
       );
       if (!shouldUnfriend) return;
@@ -628,8 +628,8 @@ export default function Profile() {
   }
 
   function onUnarchiveGame(gameId, description) {
-    return () => {
-      var shouldDelete = window.confirm(
+    return async () => {
+      var shouldDelete = await confirmAction(
         `Are you sure you wish to unarchive ${description}? If the game is old enough to be expired then it will eventually be deleted.`
       );
       if (!shouldDelete) return;
@@ -649,17 +649,17 @@ export default function Profile() {
     };
   }
 
-  function onLoveUserClick() {
+  async function onLoveUserClick() {
     if (isLove) {
       if (love === null || love === undefined) {
-        var shouldCancel = window.confirm(
+        var shouldCancel = await confirmAction(
           "Are you sure you want to cancel your love?"
         );
         if (!shouldCancel) {
           return;
         }
       } else if (love.type === "Lover") {
-        var shouldBreakup = window.confirm(
+        var shouldBreakup = await confirmAction(
           "Are you sure you want to break up?"
         );
         if (!shouldBreakup) {
@@ -667,7 +667,7 @@ export default function Profile() {
         }
       }
     } else {
-      if (!window.confirm("Are you sure you wish to send a love request?")) {
+      if (!await confirmAction("Are you sure you wish to send a love request?")) {
         return;
       }
     }
@@ -698,9 +698,9 @@ export default function Profile() {
       .catch(errorAlert);
   }
 
-  function onMarryUserClick() {
+  async function onMarryUserClick() {
     if (isMarried && love.type === "Lover") {
-      var shouldCancel = window.confirm(
+      var shouldCancel = await confirmAction(
         "Are you sure you want to stop proposing?"
       );
       if (!shouldCancel) {
@@ -708,7 +708,7 @@ export default function Profile() {
       }
     }
     if (isMarried && love.type === "Married") {
-      var shouldDivorce = window.confirm("Are you sure you want to divorce?");
+      var shouldDivorce = await confirmAction("Are you sure you want to divorce?");
       if (!shouldDivorce) {
         return;
       }
@@ -741,9 +741,9 @@ export default function Profile() {
       .catch(errorAlert);
   }
 
-  function onBlockUserClick() {
+  async function onBlockUserClick() {
     if (!isBlocked) {
-      var shouldBlock = window.confirm(
+      var shouldBlock = await confirmAction(
         "Block this user? Neither of you will be able to send the other DMs or comment on each other's profile. Keeping them out of your games also needs a moderator to approve the block."
       );
       if (!shouldBlock) return;
@@ -764,11 +764,11 @@ export default function Profile() {
       .catch(errorAlert);
   }
 
-  function onFamilyJoinRequestClick() {
+  async function onFamilyJoinRequestClick() {
     if (!userFamily) return;
 
     if (
-      !window.confirm(
+      !await confirmAction(
         `Are you sure you want to invite ${name} to join ${userFamily.name}?`
       )
     ) {
@@ -912,9 +912,9 @@ export default function Profile() {
       });
   }
 
-  function onPokeDismissClick(fromUserId) {
+  async function onPokeDismissClick(fromUserId) {
     if (
-      !window.confirm(
+      !await confirmAction(
         "Dismiss this poke? They won't be able to poke you again for 30 days."
       )
     )
@@ -1058,14 +1058,10 @@ export default function Profile() {
   const bannerStyle = {};
 
   if (settings.backgroundColor) {
-    panelStyle.backgroundColor = settings.backgroundColor;
-
-    // ensure good color contrast for headings
-    if (colorContrast(settings.backgroundColor, "#000") > 7) {
-      headingStyle.color = "#000";
-    } else {
-      headingStyle.color = "#fff";
-    }
+    // The custom color tints every content card instead of filling only the
+    // components that happen to receive panelStyle. The header keeps the full
+    // color as the profile's anchor. A tint keeps arbitrary user colors readable.
+    panelStyle.backgroundColor = `color-mix(in srgb, ${settings.backgroundColor} 24%, var(--scheme-color))`;
   }
 
   const bannerExtSafe = ["webp", "gif", "png", "jpg", "jpeg"].includes(bannerExt)
@@ -1604,7 +1600,7 @@ export default function Profile() {
           />
         </Suspense>
       )}
-      <Grid container rowSpacing={1} columnSpacing={1} className="profile" data-custom-background={Boolean(settings.backgroundColor)}>
+      <Grid container rowSpacing={2} columnSpacing={3} className="profile" data-custom-background={Boolean(settings.backgroundColor)} style={{ "--profile-card-tint": panelStyle.backgroundColor }}>
         <Grid item xs={12}>
           <Stack
             direction="row"
@@ -1613,7 +1609,7 @@ export default function Profile() {
             }}
           >
             <div
-              className="box-panel"
+              className="box-panel ui-card profile-header-panel"
               style={{ ...panelStyle, width: "100%" }}
             >
               <div className="content" style={{ gap: "8px" }}>
@@ -1653,8 +1649,8 @@ export default function Profile() {
           </Stack>
         </Grid>
         <Grid item xs={12} md={8}>
-          <Stack direction="column" spacing={1}>
-            <div className="box-panel" style={panelStyle}>
+          <Stack direction="column" spacing={2}>
+            <div className="box-panel ui-card" style={panelStyle}>
               <div
                 className={`bio${isSelf && !editingBio ? " edit" : ""}`}
                 onClick={onBioClick}
@@ -1694,21 +1690,17 @@ export default function Profile() {
               headingStyle={headingStyle}
             />
             {!isPhoneDevice && (
-              <Box
-                sx={{
-                  mt: "16px !important",
-                  px: 2,
-                }}
-              >
+              <UiCard className="profile-comments profile-tinted">
+                <h2>Comments</h2>
                 <Comments fullWidth location={profileUserId} />
-              </Box>
+              </UiCard>
             )}
           </Stack>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Stack direction="column" spacing={1}>
+          <Stack direction="column" spacing={2}>
             {mediaUrl && (
-              <div className="box-panel" style={panelStyle}>
+              <div className="box-panel ui-card" style={panelStyle}>
                 <MediaEmbed
                   key={`${profileUserId}:${mediaUrl}`}
                   mediaUrl={mediaUrl}
@@ -1718,7 +1710,7 @@ export default function Profile() {
                 ></MediaEmbed>
               </div>
             )}
-            <div className="box-panel" style={panelStyle}>
+            <div className="box-panel ui-card" style={panelStyle}>
               <div className="content trophies-content">
                 <div className="trophies-grid">
                   <Tooltip
@@ -1822,11 +1814,11 @@ export default function Profile() {
             )}
             {trophyCase}
             {stockInfo && (
-              <div className="box-panel" style={panelStyle}>
+              <div className="box-panel ui-card" style={panelStyle}>
                 <Typography variant="h3" sx={headingStyle}>
                   Stock & Equity
                 </Typography>
-                <div className="content" style={{ display: "flex", flexDirection: "column", gap: "12px", padding: "16px" }}>
+                <div className="content" style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                   <Stack direction="row" justifyContent="space-between" alignItems="center">
                     <Box>
                       <Typography variant="caption" color="text.secondary" display="block">
@@ -1893,19 +1885,9 @@ export default function Profile() {
             )}
             {hasAnyStats &&
               !settings.hideStatistics && (
-                <UiCard className="ratings">
-                  <Typography variant="h3">
-                    Mafia Ratings
-                    <Typography component="span" variant="body2" sx={{ opacity: 0.5, ml: 1 }}>
-                      {profileTotalGames.toLocaleString()} total games
-                      {totalGames !== profileTotalGames ? (
-                        <>
-                          {" "}
-                          · {totalGames} in this view
-                        </>
-                      ) : null}
-                    </Typography>
-                  </Typography>
+                <UiCard className="ratings profile-tinted">
+                  <Stack spacing={2}>
+                  <Typography variant="h3">Mafia Ratings</Typography>
                   <ToggleButtonGroup
                     size="small"
                     exclusive
@@ -1943,8 +1925,13 @@ export default function Profile() {
                     </Typography>
                   ) : (
                     <>
-                      <Stack spacing={2} sx={{ px: 1, py: 1 }}>
+                      <Stack spacing={2}>
                         <ProfileStatsSummary wins={getWins(mafiaStats)} losses={getLosses(mafiaStats)} abandons={getAbandons(mafiaStats)} total={totalGames} />
+                        <div className="profile-ratings-pie">
+                          <Suspense fallback={null}>
+                            <PieChart wins={getWins(mafiaStats)} losses={getLosses(mafiaStats)} abandons={getAbandons(mafiaStats)} />
+                          </Suspense>
+                        </div>
 
                         {statsBucket === "ranked" && skillRating?.tier ? (
                           <Paper
@@ -1954,7 +1941,7 @@ export default function Profile() {
                               display: "flex",
                               alignItems: "center",
                               gap: 1,
-                              backgroundColor: "background.paper",
+                              backgroundColor: "transparent",
                               borderColor: "divider",
                               borderRadius: 2
                             }}
@@ -2027,21 +2014,19 @@ export default function Profile() {
                             </Stack>
                           </Paper>
                         ) : statsBucket === "ranked" ? (
-                          <Paper variant="outlined" sx={{ p: 2, display: "flex", justifyContent: "center", alignItems: "center", borderRadius: 2, backgroundColor: "background.paper" }}>
-                            <Typography variant="body2" color="text.secondary" sx={{ fontStyle: "italic", textAlign: "center", p: 1 }}>
-                              {/* Counts rated games from the rating system itself, not the
-                                  profile's total game count -- the two differ, and for players
-                                  from before the rating system they differ by thousands. */}
-                              {ratedGames > 0
-                                ? `Not enough rated games played (${ratedGames}/${ratedGamesRequired}). Play at least ${ratedGamesRequired} ranked or competitive games to establish a skill rating.`
-                                : `No rated games played yet. Play at least ${ratedGamesRequired} ranked or competitive games to establish a skill rating.`
-                              }
-                            </Typography>
-                          </Paper>
+                          <Typography variant="body2" color="text.secondary" sx={{ fontStyle: "italic", textAlign: "center", py: 1 }}>
+                            {/* Counts rated games from the rating system itself, not the
+                                profile's total game count -- the two differ, and for players
+                                from before the rating system they differ by thousands. */}
+                            {ratedGames > 0
+                              ? `Not enough rated games played (${ratedGames}/${ratedGamesRequired}). Play at least ${ratedGamesRequired} ranked or competitive games to establish a skill rating.`
+                              : `No rated games played yet. Play at least ${ratedGamesRequired} ranked or competitive games to establish a skill rating.`
+                            }
+                          </Typography>
                         ) : null}
                       </Stack>
 
-                      <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
+                      <Box sx={{ display: "flex", justifyContent: "center" }}>
                         <Button
                           variant="text"
                           size="small"
@@ -2054,12 +2039,13 @@ export default function Profile() {
                       </Box>
 
                       {ratingsTab === "query" && (
-                        <Box sx={{ mt: 2, borderTop: "1px solid", borderColor: "divider", pt: 2 }}>
+                        <Box sx={{ borderTop: "1px solid", borderColor: "divider", pt: 2 }}>
                           <StatsQueryView stats={stats} statsBucket={statsBucket} />
                         </Box>
                       )}
                     </>
                   )}
+                  </Stack>
                 </UiCard>
               )}
             {isSelf && pendingConfirmationTrades.length > 0 && (
@@ -2072,7 +2058,7 @@ export default function Profile() {
                 headingStyle={headingStyle}
               />
             )}
-            <div className="box-panel recent-games" style={panelStyle}>
+            <div className="box-panel ui-card recent-games" style={panelStyle}>
               <Typography variant="h3" style={headingStyle}>
                 Recent Games
               </Typography>
@@ -2115,7 +2101,7 @@ export default function Profile() {
               </div>
             </div>
             {friendRequests.length > 0 && (
-              <div className="box-panel" style={panelStyle}>
+              <div className="box-panel ui-card" style={panelStyle}>
                 <Typography variant="h3" style={headingStyle}>
                   Friend Requests
                 </Typography>
@@ -2123,7 +2109,7 @@ export default function Profile() {
               </div>
             )}
             {incomingPokes.length > 0 && !user.settings?.disablePokes && (
-              <div className="box-panel" style={panelStyle}>
+              <div className="box-panel ui-card" style={panelStyle}>
                 <Typography variant="h3" style={headingStyle}>
                   Pokes
                 </Typography>
@@ -2161,7 +2147,7 @@ export default function Profile() {
                 </div>
               </div>
             )}
-            <div className="box-panel" style={panelStyle}>
+            <div className="box-panel ui-card" style={panelStyle}>
               <Typography variant="h3" style={headingStyle}>
                 Friends
               </Typography>
@@ -2180,7 +2166,7 @@ export default function Profile() {
                 <PageNav inverted page={friendsPage} onNav={onFriendsPageNav} />
               </div>
             </div>
-            <div className="box-panel" style={panelStyle}>
+            <div className="box-panel ui-card" style={panelStyle}>
               <Typography variant="h3" style={headingStyle}>
                 Setups Created
               </Typography>
@@ -2232,7 +2218,7 @@ export default function Profile() {
               siteInfo={siteInfo}
             />
             {archivedGamesRows.length !== 0 && (
-              <div className="box-panel archived-games" style={panelStyle}>
+              <div className="box-panel ui-card archived-games" style={panelStyle}>
                 <Typography variant="h3" sx={headingStyle}>
                   Archived Games{" "}
                   {showDelete && (
@@ -2252,8 +2238,11 @@ export default function Profile() {
           </Stack>
         </Grid>
         {isPhoneDevice && (
-          <Grid item xs={12} sx={{ mt: 1 }}>
-            <Comments fullWidth location={profileUserId} />
+          <Grid item xs={12}>
+            <UiCard className="profile-comments profile-tinted">
+              <h2>Comments</h2>
+              <Comments fullWidth location={profileUserId} />
+            </UiCard>
           </Grid>
         )}
       </Grid>

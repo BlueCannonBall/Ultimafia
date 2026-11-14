@@ -17,7 +17,7 @@ import { appendForumQuote, canComposeForumReply } from "./forumReplyComposer.mjs
 import { pastedForumReplyImage } from "./forumReplyImagePaste.mjs";
 
 import { VoteWidget } from "components/VoteWidget";
-import { UiAction, UiIcon } from "components/ui";
+import { UiAction, UiIcon, confirmAction } from "components/ui";
 import { EmoteReactions } from "components/EmoteReactions";
 import "css/emote-reactions.css";
 import "css/comments.css";
@@ -665,8 +665,8 @@ function onAddTag(targetUserId) {
       .catch(errorAlert);
   }
 
-  function onRemovePetition() {
-    const shouldRemove = window.confirm(
+  async function onRemovePetition() {
+    const shouldRemove = await confirmAction(
       "Are you sure you wish to remove this petition?"
     );
     if (!shouldRemove) return;
@@ -1196,8 +1196,8 @@ function Post(props) {
     </div>
   );
 
-  function onDeleteClick() {
-    const shouldDelete = window.confirm(
+  async function onDeleteClick() {
+    const shouldDelete = await confirmAction(
       "Are you sure you wish to delete this?"
     );
 

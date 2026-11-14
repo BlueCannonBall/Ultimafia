@@ -15,6 +15,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { confirmAction } from "components/ui";
 
 const MAX_SECONDS = 5;
 /** Source file may be up to 10 MB; final clip is trimmed client-side to <=5s. */
@@ -640,7 +641,7 @@ export default function DeathSoundUpload({
 
   const handleRemove = async () => {
     if (!hasDeathSound) return;
-    if (!window.confirm("Remove your custom death sound?")) return;
+    if (!await confirmAction("Remove your custom death sound?")) return;
     setBusy(true);
     setError("");
     try {

@@ -6,17 +6,20 @@ import "./ui.css";
 // to assistive technology without making a sticky footer cover the editor.
 export default function UiStepNavigation({ label = "Steps", currentStep, stepCount,
   onBack, onNext, nextLabel, onComplete, completeLabel = "Finish",
-  busy = false, completeDisabled = false, completionMessage, sticky = false }) {
+  busy = false, completeDisabled = false, completionMessage, sticky = false, className = "" }) {
   if (!Number.isInteger(currentStep) || !Number.isInteger(stepCount) ||
     stepCount < 1 || currentStep < 0 || currentStep >= stepCount) {
     throw new TypeError("UiStepNavigation requires a valid currentStep and stepCount");
   }
-  return <nav aria-label={label} className={`ui-step-navigation${sticky ? " ui-step-navigation--sticky" : ""}`}>
-    <UiAction disabled={currentStep === 0 || busy} onClick={onBack}>Back</UiAction>
-    <span className="ui-step-position" aria-live="polite">
-      <span className="ui-step-position-label">Step {currentStep + 1} of {stepCount}</span>
-      <span className="ui-step-position-compact" aria-hidden="true">{currentStep + 1} / {stepCount}</span>
-    </span>
+  const single = stepCount === 1;
+  return <nav aria-label={label} className={`ui-step-navigation${sticky ? " ui-step-navigation--sticky" : ""}${single ? " ui-step-navigation--single" : ""} ${className}`.trim()}>
+    {!single && <UiAction disabled={currentStep === 0 || busy} onClick={onBack}>Back</UiAction>}
+    {!single && (
+      <span className="ui-step-position" aria-live="polite">
+        <span className="ui-step-position-label">Step {currentStep + 1} of {stepCount}</span>
+        <span className="ui-step-position-compact" aria-hidden="true">{currentStep + 1} / {stepCount}</span>
+      </span>
+    )}
     {currentStep < stepCount - 1 ? (
       <UiAction variant="primary" disabled={busy} onClick={onNext}
         aria-label={nextLabel ? `Next: ${nextLabel}` : "Next"}>

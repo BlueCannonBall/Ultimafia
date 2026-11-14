@@ -25,7 +25,7 @@ import { useIsPhoneDevice } from "hooks/useIsPhoneDevice";
 import CustomMarkdown from "components/CustomMarkdown";
 import TrophyCase from "components/TrophyCase";
 import { capitalize } from "utils";
-import { UiAction, UiDialog, UiIcon, UiMenu, UiMenuItem, UiPage, UiPageHeader } from "components/ui";
+import { UiAction, UiCard, UiDialog, UiIcon, UiMenu, UiMenuItem, UiPage, UiPageHeader } from "components/ui";
 import { LatestRequest } from "../../lib/latestRequest";
 import "css/family.css";
 import { 
@@ -463,10 +463,10 @@ export default function Family() {
                 />
               </Paper>
             )}
-            <section className="family-comments">
+            <UiCard className="family-comments">
               <h2>Comments</h2>
               <Comments fullWidth location={`family/${familyId}`} canModerateLocation={!!family.isLeader} />
-            </section>
+            </UiCard>
         </div>
         <aside className="family-rail">
             {pendingInvite && (
