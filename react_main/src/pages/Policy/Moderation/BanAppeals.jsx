@@ -17,20 +17,12 @@ import {
   Radio,
   RadioGroup,
   Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   TextField,
-  ToggleButton,
-  ToggleButtonGroup,
   Typography,
 } from "@mui/material";
 
 import { useViewNavigate as useNavigate } from "hooks/useViewActivity";
-import { UiAction, UiPending } from "components/ui";
+import { UiAction, UiPending, UiSegmentedControl, UiTable } from "components/ui";
 
 export const BAN_APPEALS_PATH = "/policy/moderation/ban-appeals";
 
@@ -69,25 +61,6 @@ export function tallyText(tally) {
 // A queue cell that is a link to the case, filling the cell, so a click
 // anywhere in the row (the name included) opens it, and it can be opened in
 // a new tab.
-function CaseCell({ to, children, sx }) {
-  return (
-    <TableCell sx={{ p: 0, ...sx }}>
-      <Box
-        component={RouterLink}
-        to={to}
-        sx={{
-          display: "block",
-          px: 2,
-          py: "6px",
-          color: "inherit",
-          textDecoration: "none",
-        }}
-      >
-        {children}
-      </Box>
-    </TableCell>
-  );
-}
 
 function StatusChip({ status }) {
   return <span className={`moderation-status moderation-status-${status || "default"}`}>{String(status || "").toUpperCase()}</span>;
@@ -152,16 +125,16 @@ function AppealList() {
         justifyContent="space-between"
         alignItems={{ xs: "flex-start", sm: "center" }}
       >
-        <ToggleButtonGroup
-          size="small"
-          exclusive
+        <UiSegmentedControl
+          ariaLabel="Appeal status"
           value={filter}
-          onChange={(_, value) => value && setFilter(value)}
-        >
-          <ToggleButton value="pending">Pending</ToggleButton>
-          <ToggleButton value="resolved">Resolved</ToggleButton>
-          <ToggleButton value="all">All</ToggleButton>
-        </ToggleButtonGroup>
+          onChange={setFilter}
+          options={[
+            { value: "pending", label: "Pending" },
+            { value: "resolved", label: "Resolved" },
+            { value: "all", label: "All" },
+          ]}
+        />
       </Stack>
       {error && <Alert severity="error">{error}</Alert>}
       {!error && !rows && <UiPending label="Loading ban appeals" />}
@@ -175,67 +148,24 @@ function AppealList() {
         </Typography>
       )}
       {rows && rows.length > 0 && (
-        <TableContainer className="moderation-table">
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell>Banned user</TableCell>
-                <TableCell>Ban</TableCell>
-                <TableCell>Banned on</TableCell>
-                <TableCell>Expires</TableCell>
-                <TableCell>Appeal filed</TableCell>
-                <TableCell>Tally</TableCell>
-                <TableCell>Status</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  hover
-                  data-testid="ban-appeal-row"
-                  sx={{ cursor: "pointer" }}
-                  onClick={(e) => {
-                    // The cell links navigate themselves.
-                    if (e.target.closest("a")) return;
-                    navigate(caseLink(row));
-                  }}
-                >
-                  <CaseCell to={caseLink(row)} sx={{ fontWeight: 600 }}>
-                    {row.username}
-                  </CaseCell>
-                  <CaseCell to={caseLink(row)}>
-                    {row.ban
-                      ? `${row.ban.label}${row.ban.active ? "" : " (ended)"}`
-                      : "Ban removed"}
-                  </CaseCell>
-                  <CaseCell to={caseLink(row)}>
-                    {formatDate(row.ban?.issuedAt)}
-                  </CaseCell>
-                  <CaseCell to={caseLink(row)}>
-                    {!row.ban
-                      ? "-"
-                      : row.ban.permanent
-                        ? "Never (permanent)"
-                        : formatDate(row.ban.expires)}
-                  </CaseCell>
-                  <CaseCell to={caseLink(row)}>{formatDate(row.filedAt)}</CaseCell>
-                  <CaseCell to={caseLink(row)}>
-                    {tallyText(row.tally)}
-                    {row.myVote && (
-                      <Typography variant="caption" display="block" color="text.secondary">
-                        You voted {row.myVote}
-                      </Typography>
-                    )}
-                  </CaseCell>
-                  <CaseCell to={caseLink(row)}>
-                    <StatusChip status={row.status} />
-                  </CaseCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <UiTable
+          label="Ban appeals"
+          rows={rows}
+          rowKey="id"
+          onRowClick={(row, event) => {
+            if (event.target.closest("a")) return;
+            navigate(caseLink(row));
+          }}
+          columns={[
+            { key: "username", label: "Banned user", render: (row) => <Box component={RouterLink} to={caseLink(row)} sx={{ color: "inherit", textDecoration: "none", fontWeight: 600 }}>{row.username}</Box> },
+            { key: "ban", label: "Ban", nowrap: true, render: (row) => (row.ban ? `${row.ban.label}${row.ban.active ? "" : " (ended)"}` : "Ban removed") },
+            { key: "issued", label: "Banned on", nowrap: true, render: (row) => formatDate(row.ban?.issuedAt) },
+            { key: "expires", label: "Expires", nowrap: true, render: (row) => (!row.ban ? "-" : row.ban.permanent ? "Never (permanent)" : formatDate(row.ban.expires)) },
+            { key: "filed", label: "Appeal filed", nowrap: true, render: (row) => formatDate(row.filedAt) },
+            { key: "tally", label: "Tally", render: (row) => <>{tallyText(row.tally)}{row.myVote && <Typography variant="caption" display="block" color="text.secondary">You voted {row.myVote}</Typography>}</> },
+            { key: "status", label: "Status", nowrap: true, render: (row) => <StatusChip status={row.status} /> },
+          ]}
+        />
       )}
     </Stack>
   );

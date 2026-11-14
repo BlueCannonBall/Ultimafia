@@ -114,6 +114,7 @@
 .ui-table :is(th, td) { padding: 12px 8px; border-bottom: 1px solid var(--scheme-color-border); vertical-align: top; }
 .ui-table th { color: var(--um-muted); font-weight: var(--ui-weight-strong); }
 .ui-table th.is-nowrap, .ui-table td.is-nowrap { white-space: nowrap; }
+.ui-table tbody tr.is-clickable { cursor: pointer; }
 .ui-table--comparison :is(th, td) { text-align: center; }
 .ui-table-value { min-width: 0; overflow-wrap: anywhere; }
 .ui-table-value--code { font-family: monospace; }
@@ -292,4 +293,94 @@
   font-size: var(--ui-text-heading);
   font-weight: var(--ui-weight-strong);
   line-height: var(--ui-line-heading, normal);
+}
+
+/* Segmented choice: one implementation for filters and data views. */
+.ui-segmented-shell {
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  min-width: 0;
+}
+/* The fade is only present when the row actually scrolls. */
+.ui-segmented-shell::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  bottom: 1px;
+  width: 28px;
+  border-radius: 0 var(--ui-radius-pill) var(--ui-radius-pill) 0;
+  background: linear-gradient(to right, transparent, var(--scheme-color-sec) 72%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+.ui-segmented-shell[data-overflow]::after { opacity: 1; }
+.ui-segmented {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 2px;
+  max-width: 100%;
+  min-height: var(--ui-action-height);
+  padding: 3px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 1px solid var(--scheme-color-border);
+  border-radius: var(--ui-radius-pill);
+  background: var(--scheme-color-sec);
+  scrollbar-width: none;
+}
+.ui-segmented::-webkit-scrollbar { display: none; }
+.ui-segmented-option {
+  flex: 0 0 auto;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--ui-radius-pill);
+  background: transparent;
+  color: var(--um-muted);
+  font: inherit;
+  font-size: var(--ui-text-small);
+  font-weight: var(--ui-weight-strong);
+  line-height: var(--ui-line-action);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.ui-segmented-option:hover:not(:disabled) { color: var(--scheme-color-text); background: var(--scheme-color); }
+.ui-segmented-option[aria-pressed="true"] {
+  background: var(--ui-selection-background);
+  color: var(--scheme-color-text);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ui-selection) 55%, transparent);
+}
+.ui-segmented-option:focus-visible { outline: 2px solid var(--ui-selection); outline-offset: 1px; }
+.ui-segmented-option:disabled { opacity: .45; cursor: default; }
+
+/* Page vote: a 40px pill in the page header, matching the action height. */
+.ui-vote-control {
+  display: inline-flex;
+  align-items: center;
+  height: var(--ui-action-height);
+  padding: 0 4px;
+  border: 1px solid var(--scheme-color-border);
+  border-radius: var(--ui-radius-pill);
+  background: var(--scheme-color-sec);
+}
+.ui-vote-control .ui-vote .MuiIconButton-root,
+.ui-vote--row .MuiIconButton-root {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+}
+.ui-vote--row { flex-wrap: nowrap; }
+
+/* Phones: compact the choices and let them wrap instead of running off the
+   page. The container's min-content width becomes one option, not the row. */
+@media (max-width: 600px) {
+  .ui-segmented { min-width: 0; padding: 2px; gap: 0; flex-wrap: nowrap; }
+  .ui-segmented-option { padding: 0 6px; font-size: var(--ui-text-caption); }
 }

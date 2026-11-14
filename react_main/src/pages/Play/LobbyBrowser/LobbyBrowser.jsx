@@ -4,7 +4,7 @@ import { useLocation, Link } from "react-router-dom";
 import { useViewNavigate as useNavigate } from "hooks/useViewActivity";
 import axios from "axios";
 import UiIcon from "components/ui/UiIcon";
-import { UiPageHeader, UiAction, UiField, UiTabs, UiTab } from "components/ui";
+import { UiPageHeader, UiAction, UiField, UiSegmentedControl, UiTabs, UiTab } from "components/ui";
 
 import { UserContext, InGameContext } from "Contexts";
 import { getPageNavFilterArg, PageNav } from "components/Nav";
@@ -332,10 +332,18 @@ export default function LobbyBrowser() {
               {lobby.name === "All" ? "All lobbies" : lobby.name}{openGamesCounts[lobby.name] ? ` (${openGamesCounts[lobby.name]})` : ""}
             </option>)}
           </UiField>
-          <div className="lobby-status-tabs" role="group" aria-label="Filter games by status">
-            {[["All", "All"], ["Open", "Open"], ["In Progress", "Live"], ["Finished", "Finished"]].map(([value, label]) =>
-              <button key={value} type="button" aria-pressed={statusFilter === value} onClick={() => setStatusFilter(value)}>{label}</button>)}
-          </div>
+          <UiSegmentedControl
+            className="lobby-status-tabs"
+            ariaLabel="Filter games by status"
+            value={statusFilter}
+            onChange={setStatusFilter}
+            options={[
+              { value: "All", label: "All" },
+              { value: "Open", label: "Open" },
+              { value: "In Progress", label: "Live" },
+              { value: "Finished", label: "Finished" },
+            ]}
+          />
           <UiAction iconOnly aria-label="Search games" aria-expanded={filtersExpanded} aria-controls="game-search" onClick={() => setFiltersExpanded(value => !value)}><UiIcon name="search" /></UiAction>
           <UiAction iconOnly aria-label="Refresh games" disabled={loading} aria-busy={refreshButtonIsSpinning} onClick={refreshGames}><UiIcon name="refresh" className={refreshButtonIsSpinning ? "ui-icon--busy" : ""} /></UiAction>
         </div>

@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { ViewNavigate as Navigate, useViewNavigate as useNavigate } from "hooks/useViewActivity";
 import axios from "axios";
 import update from "immutability-helper";
-import { UiCard, UiPage, UiPageHeader, confirmAction } from "components/ui";
+import { UiCard, UiPage, UiPageHeader, UiSegmentedControl, confirmAction } from "components/ui";
 import ProfileStatsSummary from "./ProfileStatsSummary";
 const PieChart = lazy(() => import("./PieChart").then((module) => ({ default: module.PieChart })));
 
@@ -70,8 +70,6 @@ import {
   Popover,
   Stack,
   TextField,
-  ToggleButton,
-  ToggleButtonGroup,
   Tooltip,
   Typography,
   useMediaQuery,
@@ -1730,7 +1728,7 @@ export default function Profile() {
                     </div>
                   </Tooltip>
                   {karmaInfo && (
-                    <div className="trophy-karma" role="group" aria-label="Profile karma">
+                    <div className="trophy-karma">
                     <Tooltip
                       title="Upvotes from other players on your profile."
                       arrow
@@ -1888,34 +1886,16 @@ export default function Profile() {
                 <UiCard className="ratings profile-tinted">
                   <Stack spacing={2}>
                   <Typography variant="h3">Mafia Ratings</Typography>
-                  <ToggleButtonGroup
-                    size="small"
-                    exclusive
+                  <UiSegmentedControl
+                    ariaLabel="Statistics range"
                     value={statsBucket}
-                    onChange={(e, v) => v && setStatsBucket(v)}
-                    sx={{
-                      mb: 1,
-                      display: "flex",
-                      justifyContent: "center",
-                      "& .MuiToggleButton-root": {
-                        px: 1.5,
-                        py: 0.25,
-                        fontSize: "0.7rem",
-                        textTransform: "none",
-                        border: "1px solid",
-                        borderColor: "divider",
-                        color: "text.secondary",
-                      },
-                      "& .MuiToggleButton-root.Mui-selected": {
-                        backgroundColor: "action.selected",
-                        color: "text.primary",
-                      },
-                    }}
-                  >
-                    <ToggleButton value="ranked">Ranked + Comp</ToggleButton>
-                    <ToggleButton value="unranked">Unranked</ToggleButton>
-                    <ToggleButton value="combined">All Games</ToggleButton>
-                  </ToggleButtonGroup>
+                    onChange={setStatsBucket}
+                    options={[
+                      { value: "ranked", label: "Ranked + Comp" },
+                      { value: "unranked", label: "Unranked" },
+                      { value: "combined", label: "All Games" },
+                    ]}
+                  />
                   {totalGames < RequiredTotalForStats ? (
                     <Typography
                       variant="body2"
@@ -2350,7 +2330,7 @@ export function KarmaVoteWidget(props) {
   }
 
   return (
-    <div className="ui-inline-actions" role="group" aria-label="Vote on this profile">
+    <div className="ui-inline-actions" role="group" aria-label="Profile karma" data-ui-control="karma">
       <UiAction iconOnly variant="ghost" aria-label="Upvote profile" aria-pressed={item.vote === 1} onClick={() => onVote(1)}><UiIcon name="up" /></UiAction>
       <UiAction iconOnly variant="ghost" aria-label="Downvote profile" aria-pressed={item.vote === -1} onClick={() => onVote(-1)}><UiIcon name="down" /></UiAction>
     </div>

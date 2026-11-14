@@ -27,6 +27,9 @@ export function VoteWidget(props) {
 
   const user = useContext(UserContext);
   const errorAlert = useErrorAlert();
+  const variant = props.variant || "stack";
+  // Page and row votes read across; comment votes read down the left edge.
+  const horizontal = variant === "page" || variant === "row";
   const [userVotes, setUserVotes] = useState([]);
 
   const upvoters = userVotes.slice().filter((vote) => vote.direction === 1);
@@ -102,7 +105,15 @@ export function VoteWidget(props) {
   }
 
   return (
-    <Stack direction="column">
+    <Stack
+      direction={horizontal ? "row" : "column"}
+      alignItems="center"
+      className={`ui-vote ui-vote--${variant}`}
+      role={props.ariaLabel ? "group" : undefined}
+      aria-label={props.ariaLabel}
+      data-ui-control="vote"
+      data-ui-variant={variant}
+    >
       <IconButton
         aria-label="Upvote" disabled={!user.perms?.vote}
         sx={{

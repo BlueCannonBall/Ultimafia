@@ -7,7 +7,6 @@ import {
   Grid2,
   Divider,
   Tabs,
-  Tab,
   Box,
   Tooltip,
   FormControl,
@@ -29,7 +28,7 @@ import { UserContext, SiteInfoContext } from "Contexts";
 import { PageNav, SearchBar } from "components/Nav";
 import { useErrorAlert } from "components/Alerts";
 import { formatUTCDateOnly, formatUTCDateTime } from "utils";
-import { UiPageHeader, UiField } from "components/ui";
+import { UiPageHeader, UiField, UiTabs, UiTab } from "components/ui";
 
 export const QUERY_PARAM_SEASON = "season";
 export const QUERY_PARAM_ROUND = "round";
@@ -771,7 +770,7 @@ export default function Competitive() {
       </Grid2>
       {currentRoundInfo.round && (
         <>
-          <Tabs
+          <UiTabs
             centered
             value={tab}
             onChange={(_, newValue) => setTab(newValue)}
@@ -780,11 +779,11 @@ export default function Competitive() {
               borderColor: "divider",
             }}
           >
-            <Tab label="Overview" value="overview" />
+            <UiTab label="Overview" value="overview" />
             {roundHasStarted && (
-              <Tab label="Round History" value="gameHistory" />
+              <UiTab label="Round History" value="gameHistory" />
             )}
-          </Tabs>
+          </UiTabs>
           <Stack spacing={1} sx={{ display: tab === "overview" ? undefined : "none" }}>
             <Overview
               roundInfo={currentRoundInfo}

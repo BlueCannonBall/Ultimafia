@@ -9,13 +9,10 @@ import {
   TextField,
   InputAdornment,
   Tabs,
-  Tab,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
-  ToggleButton,
-  ToggleButtonGroup,
   Chip,
   Paper,
   Table,
@@ -35,7 +32,7 @@ import {
 import { PageNav } from "components/Nav";
 import "css/fame.css";
 import CoinIcon from "components/CoinIcon";
-import { UiAction, UiCard, UiIcon, UiPageHeader, UiStat, UiStatRow } from "components/ui";
+import { UiAction, UiCard, UiIcon, UiPageHeader, UiSegmentedControl, UiStat, UiStatRow, UiTabs, UiTab } from "components/ui";
 import { useErrorAlert } from "../../components/Alerts";
 import { useIsPhoneDevice } from "../../hooks/useIsPhoneDevice";
 import { UserContext, SiteInfoContext } from "../../Contexts";
@@ -480,7 +477,7 @@ export default function StockMarket() {
       </UiPageHeader>
 
       {/* Tabs Menu */}
-      <Tabs
+      <UiTabs
         value={activeTab}
         onChange={(e, val) => {
           setActiveTab(val);
@@ -492,34 +489,21 @@ export default function StockMarket() {
         sx={{ borderBottom: 1, borderColor: "divider", mb: 3 }}
       >
         {tabs.map((t) => (
-          <Tab key={t.label} icon={<UiIcon name={t.icon} size={18} />} iconPosition="start" label={t.label} />
+          <UiTab key={t.label} icon={<UiIcon name={t.icon} size={18} />} iconPosition="start" label={t.label} />
         ))}
-      </Tabs>
+      </UiTabs>
 
       {/* Market Mode Toggles for All Markets / Portfolio / Transactions tabs */}
       {(currentTabLabel === "All Markets" || currentTabLabel === "My Portfolio" || currentTabLabel === "Transactions") && (
-        <Stack direction="row" justifyContent="flex-start" sx={{ mb: 3, width: '100%', minWidth: 0 }}>
-          <ToggleButtonGroup
+                  <UiSegmentedControl
+            ariaLabel="Market mode"
             value={marketMode}
-            exclusive
-            onChange={(e, val) => {
-              if (val) {
-                setMarketMode(val);
-                setSearchQuery("");
-              }
-            }}
-            size="small"
-            color="primary"
-            sx={{ flexWrap: 'wrap' }}
-          >
-            <ToggleButton value="player" sx={{ px: { xs: 1, sm: 3 }, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
-              <UiIcon name="person" size={16} /> Player Stocks
-            </ToggleButton>
-            <ToggleButton value="family" sx={{ px: { xs: 1, sm: 3 }, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
-              <UiIcon name="people" size={16} /> {isMobile ? "Family ETFs" : "Family ETFs (Index Funds)"}
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </Stack>
+            onChange={(value) => { setMarketMode(value); setSearchQuery(""); }}
+            options={[
+              { value: "player", label: "Player Stocks" },
+              { value: "family", label: "Family ETFs" },
+            ]}
+          />
       )}
 
       {/* Tab Content: All Markets */}
@@ -1290,28 +1274,16 @@ export default function StockMarket() {
               <Typography variant="body2" color="text.secondary">
                 Type:
               </Typography>
-              <ToggleButtonGroup
-                size="small"
+              <UiSegmentedControl
+                ariaLabel="Transaction type filter"
                 value={txTypeFilter}
-                exclusive
-                onChange={(e, val) => {
-                  if (val !== null) {
-                    setTxTypeFilter(val);
-                    setTxPage(1);
-                  }
-                }}
-                aria-label="transaction type filter"
-              >
-                <ToggleButton value="all" sx={{ textTransform: "none", fontWeight: "bold" }}>
-                  All
-                </ToggleButton>
-                <ToggleButton value="buy" sx={{ textTransform: "none", fontWeight: "bold" }}>
-                  Buys
-                </ToggleButton>
-                <ToggleButton value="sell" sx={{ textTransform: "none", fontWeight: "bold" }}>
-                  Sells
-                </ToggleButton>
-              </ToggleButtonGroup>
+                onChange={(value) => { setTxTypeFilter(value); setTxPage(1); }}
+                options={[
+                  { value: "all", label: "All" },
+                  { value: "buy", label: "Buys" },
+                  { value: "sell", label: "Sells" },
+                ]}
+              />
             </Stack>
           </Stack>
 

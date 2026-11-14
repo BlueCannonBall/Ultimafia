@@ -56,6 +56,21 @@ const shots = [
     width: 390,
     elements: [["profile-family-comments-phone", ".family-comments"]],
   },
+  { name: "setup-statistics-desktop", route: "/learn/setup/fixture-setup-0", text: "Classic", tab: "Statistics", width: 1440, elements: [["setup-game-type-filter", ".ui-segmented-shell"]] },
+  { name: "host-desktop", route: "/play/host", text: "Host a game", width: 1440, elements: [["host-collections", ".ui-segmented-shell"]] },
+  { name: "lobby-desktop", route: "/play", selector: ".lobby-status-tabs", width: 1440, elements: [["lobby-status", ".ui-segmented-shell"]] },
+  { name: "character-decks-desktop", route: "/play/decks?game=Mafia", selector: ".deck-library-toolbar", width: 1440 },
+  { name: "activity-desktop", route: "/activity/metrics", text: "Site activity", width: 1440 },
+  { name: "shop-desktop", route: "/user/shop", text: "Shop", width: 1440 },
+  { name: "hall-of-fame-desktop", route: "/fame/hall-of-fame", text: "Hall of Fame", width: 1440 },
+  { name: "stocks-desktop", route: "/fame/stocks", text: "Stock Market", width: 1440 },
+  { name: "competitive-desktop", route: "/fame/competitive", text: "Season 1 standings", width: 1440 },
+  { name: "authentication-desktop", route: "/auth/login", mode: "guest", selector: 'input[type="password"]', width: 1440 },
+  { name: "forum-thread-desktop", route: "/community/forums/thread/fixture-thread-0", anyContent: true, width: 1440 },
+  { name: "reference-role-desktop", route: "/learn/role/Cop", text: "Each night, you can choose to visit one player", width: 1440 },
+  { name: "reference-setup-desktop", route: "/learn/setup/fixture-setup-0", text: "Classic", width: 1440 },
+  { name: "competitive-faq-desktop", route: "/fame/competitive/faq", text: "Competitive FAQ", width: 1440, elements: [["competitive-faq-table", ".ui-table"]] },
+  { name: "ban-appeals-desktop", route: "/policy/moderation/ban-appeals", mode: "staff", selector: ".ui-table", width: 1440, elements: [["ban-appeals-table", ".ui-table"]] },
   { name: "editor-mafia-desktop", route: "/play/create?game=Mafia&copy=fixture-setup-0", selector: ".setup-wizard", width: 1440 },
   { name: "editor-jotto-desktop", route: "/play/create?game=Jotto", selector: ".setup-wizard", width: 1440 },
   { name: "editor-chess-desktop", route: "/play/create?game=Chess", selector: ".setup-wizard", width: 1440 },
@@ -99,9 +114,13 @@ async function main() {
       });
       try {
         await waitForRoute(page, origin, {
-          route: shot.route, mode: "member", theme,
-          text: shot.text, selector: shot.selector,
+          route: shot.route, mode: shot.mode || "member", theme,
+          text: shot.text, selector: shot.selector, anyContent: shot.anyContent,
         });
+        if (shot.tab) {
+          await page.getByRole("tab", { name: shot.tab }).first().click();
+          await page.waitForTimeout(900);
+        }
         const fullName = `${shot.name}.png`;
         await page.screenshot({ path: path.join(output, fullName), fullPage: true, animations: "disabled" });
         captured.push({ group: "Pages", name: shot.name, file: fullName, viewport: shot.width });

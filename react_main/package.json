@@ -75,7 +75,9 @@
     "test:strategy-windows:browser": "rsbuild build --config rsbuild.strategy-windows-test.config.ts && node test/run-strategy-windows.cjs",
     "ui:debt": "node scripts/check-ui-scale-debt.cjs --queue",
     "ui:debt:update": "node scripts/check-ui-scale-debt.cjs --update",
-    "ui:shots": "node test/capture-ui-shots.cjs"
+    "ui:shots": "node test/capture-ui-shots.cjs",
+    "ui:controls": "node test/run-ui-controls.cjs",
+    "ui:collisions": "node test/run-ui-collisions.cjs"
   },
   "eslintConfig": {
     "extends": [

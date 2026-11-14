@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-14T05:38:21.170Z",
+  "generatedAt": "2026-11-14T16:19:11.559Z",
   "theme": "dark",
   "screenshots": [
     {
@@ -85,6 +85,126 @@
       "name": "profile-family-comments-phone",
       "file": "profile-family-comments-phone.png",
       "viewport": 390
+    },
+    {
+      "group": "Pages",
+      "name": "setup-statistics-desktop",
+      "file": "setup-statistics-desktop.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Regions",
+      "name": "setup-game-type-filter",
+      "file": "setup-game-type-filter.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Pages",
+      "name": "host-desktop",
+      "file": "host-desktop.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Regions",
+      "name": "host-collections",
+      "file": "host-collections.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Pages",
+      "name": "lobby-desktop",
+      "file": "lobby-desktop.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Regions",
+      "name": "lobby-status",
+      "file": "lobby-status.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Pages",
+      "name": "character-decks-desktop",
+      "file": "character-decks-desktop.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Pages",
+      "name": "activity-desktop",
+      "file": "activity-desktop.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Pages",
+      "name": "shop-desktop",
+      "file": "shop-desktop.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Pages",
+      "name": "hall-of-fame-desktop",
+      "file": "hall-of-fame-desktop.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Pages",
+      "name": "stocks-desktop",
+      "file": "stocks-desktop.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Pages",
+      "name": "competitive-desktop",
+      "file": "competitive-desktop.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Pages",
+      "name": "authentication-desktop",
+      "file": "authentication-desktop.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Pages",
+      "name": "forum-thread-desktop",
+      "file": "forum-thread-desktop.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Pages",
+      "name": "reference-role-desktop",
+      "file": "reference-role-desktop.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Pages",
+      "name": "reference-setup-desktop",
+      "file": "reference-setup-desktop.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Pages",
+      "name": "competitive-faq-desktop",
+      "file": "competitive-faq-desktop.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Regions",
+      "name": "competitive-faq-table",
+      "file": "competitive-faq-table.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Pages",
+      "name": "ban-appeals-desktop",
+      "file": "ban-appeals-desktop.png",
+      "viewport": 1440
+    },
+    {
+      "group": "Regions",
+      "name": "ban-appeals-table",
+      "file": "ban-appeals-table.png",
+      "viewport": 1440
     },
     {
       "group": "Pages",

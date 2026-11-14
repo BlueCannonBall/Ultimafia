@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef, useMemo } from "react";
-import { UiPage, UiSection, UiProductCard, confirmAction } from "components/ui";
+import { UiPage, UiSection, UiProductCard, UiTabs, UiTab, confirmAction } from "components/ui";
 import { useLocation } from "react-router-dom";
 import { ViewNavigate as Navigate } from "hooks/useViewActivity";
 import axios from "axios";
@@ -18,7 +18,6 @@ import {
   Grid2,
   Divider,
   Tabs,
-  Tab,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -380,7 +379,7 @@ export default function Shop(props) {
         </Stack>
       }>
 
-      <Tabs
+      <UiTabs
         value={activeTab}
         onChange={(_, newValue) => setActiveTab(newValue)}
         centered
@@ -389,10 +388,10 @@ export default function Shop(props) {
           borderColor: "divider",
         }}
       >
-        <Tab value="shop" label="Shop" />
-        <Tab value="manage" label="Donate" />
-        <Tab value="transfer" label="Transfer Coins" />
-      </Tabs>
+        <UiTab value="shop" label="Shop" />
+        <UiTab value="manage" label="Donate" />
+        <UiTab value="transfer" label="Transfer Coins" />
+      </UiTabs>
 
       {activeTab === "shop" && (
         <>

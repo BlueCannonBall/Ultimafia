@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-11-14T02:45:23.327Z",
-  "count": 307,
+  "generatedAt": "2026-11-14T16:03:10.267Z",
+  "count": 306,
   "byKind": {
-    "mui-inline-scale": 211,
+    "mui-inline-scale": 210,
     "native-hidden": 2,
     "native-file": 10,
     "native-confirm": 2,
-    "native-widget": 34,
-    "native-form": 48
+    "native-widget": 35,
+    "native-form": 47
   },
-  "actionable": 249,
+  "actionable": 248,
   "sanctioned": 12,
   "game": 46,
   "files": 79,
@@ -73,7 +73,7 @@
     },
     {
       "file": "components/Auth.jsx",
-      "line": 598,
+      "line": 597,
       "kind": "native-hidden",
       "scope": "site",
       "name": "input",
@@ -81,14 +81,14 @@
     },
     {
       "file": "components/Auth.jsx",
-      "line": 633,
+      "line": 632,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography color=\"text.secondary\" sx={{ fontSize: \"11px\", opacity: "
     },
     {
       "file": "components/Auth.jsx",
-      "line": 682,
+      "line": 681,
       "kind": "native-hidden",
       "scope": "site",
       "name": "input",
@@ -96,14 +96,14 @@
     },
     {
       "file": "components/Auth.jsx",
-      "line": 756,
+      "line": 755,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography color=\"text.secondary\" sx={{ fontSize: \"11px\", opacity: \"0.5\", "
     },
     {
       "file": "components/Auth.jsx",
-      "line": 825,
+      "line": 824,
       "kind": "mui-inline-scale",
       "name": "DialogContent",
       "snippet": "<DialogContent sx={{ p: 2, height: \"100%\", display: \"flex\", flexDirection: \"column\", overflow: \"hidden\" }}>"
@@ -183,42 +183,35 @@
     },
     {
       "file": "components/FanartPanel.jsx",
-      "line": 161,
-      "kind": "mui-inline-scale",
-      "name": "Typography",
-      "snippet": "<Typography sx={{ flexGrow: 1, fontWeight: 700, fontSize: \"1.15rem"
-    },
-    {
-      "file": "components/FanartPanel.jsx",
-      "line": 205,
+      "line": 193,
       "kind": "mui-inline-scale",
       "name": "IconButton",
       "snippet": "<IconButton size=\"small\" onClick={goPrev} aria-label=\"Previous fan"
     },
     {
       "file": "components/FanartPanel.jsx",
-      "line": 270,
+      "line": 258,
       "kind": "mui-inline-scale",
       "name": "IconButton",
       "snippet": "<IconButton size=\"small\" onClick={(e) => { e.stopPro"
     },
     {
       "file": "components/FanartPanel.jsx",
-      "line": 300,
+      "line": 288,
       "kind": "mui-inline-scale",
       "name": "IconButton",
       "snippet": "<IconButton size=\"small\" onClick={goNext} aria-label=\"Next fanart\""
     },
     {
       "file": "components/FanartPanel.jsx",
-      "line": 333,
+      "line": 321,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"subtitle1\" sx={{ fontWeight: 600, "
     },
     {
       "file": "components/FanartPanel.jsx",
-      "line": 387,
+      "line": 376,
       "kind": "native-file",
       "scope": "site",
       "name": "input",
@@ -401,14 +394,14 @@
     },
     {
       "file": "components/Strategies.jsx",
-      "line": 381,
+      "line": 388,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"subtitle1\" sx={{ fontWeight: 600, wordBreak: \"break-word\" }} "
     },
     {
       "file": "components/Strategies.jsx",
-      "line": 570,
+      "line": 577,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"subtitle1\" id=\"strategy-reader-title\" data-testid=\"strategy-rea"
@@ -471,28 +464,28 @@
     },
     {
       "file": "components/VoteWidget.jsx",
-      "line": 106,
+      "line": 117,
       "kind": "mui-inline-scale",
       "name": "IconButton",
       "snippet": "<IconButton aria-label=\"Upvote\" disabled={!user.perms?.vote} sx={{ fontSize: \"1em\", "
     },
     {
       "file": "components/VoteWidget.jsx",
-      "line": 115,
+      "line": 126,
       "kind": "mui-inline-scale",
       "name": "IconButton",
       "snippet": "<IconButton aria-label=\"View votes\" disabled={!user.perms?.viewVotes} onClick={(e) => getVotes(e, item.i"
     },
     {
       "file": "components/VoteWidget.jsx",
-      "line": 127,
+      "line": 138,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography sx={{ position: \"absolute\", lineHeight: \"1\", color: \"inherit\","
     },
     {
       "file": "components/VoteWidget.jsx",
-      "line": 137,
+      "line": 148,
       "kind": "mui-inline-scale",
       "name": "IconButton",
       "snippet": "<IconButton aria-label=\"Downvote\" disabled={!user.perms?.vote} sx={{ fontSize: \"1em\", "
@@ -698,6 +691,14 @@
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"subtitle2\" noWrap data-testid=\"strategy-window-title\" sx={{"
+    },
+    {
+      "file": "components/ui/UiSegmentedControl.jsx",
+      "line": 23,
+      "kind": "native-widget",
+      "scope": "site",
+      "name": "button",
+      "snippet": "<button key={option.value} type=\"button\" className=\"ui-segmented-option\" aria-pr"
     },
     {
       "file": "pages/Activity/Metrics.jsx",
@@ -948,259 +949,259 @@
     },
     {
       "file": "pages/Fame/Competitive.jsx",
-      "line": 109,
+      "line": 108,
       "kind": "mui-inline-scale",
       "name": "Paper",
       "snippet": "<Paper elevation={2} sx={{ p: 2, height: \"100%\", }}>"
     },
     {
       "file": "pages/Fame/Competitive.jsx",
-      "line": 151,
+      "line": 150,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"body2\" sx={{ lineHeight: \"1\", "
     },
     {
       "file": "pages/Fame/Competitive.jsx",
-      "line": 167,
+      "line": 166,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"body2\" sx={{ lineHeight: \"1\", "
     },
     {
       "file": "pages/Fame/Competitive.jsx",
-      "line": 190,
+      "line": 189,
       "kind": "mui-inline-scale",
       "name": "Paper",
       "snippet": "<Paper elevation={2} sx={{ p: 2, height: \"100%\", }}>"
     },
     {
       "file": "pages/Fame/Competitive.jsx",
-      "line": 235,
+      "line": 234,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"body2\" sx={{ lineHeight: \"1\", "
     },
     {
       "file": "pages/Fame/Competitive.jsx",
-      "line": 251,
+      "line": 250,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"body2\" sx={{ lineHeight: \"1\", "
     },
     {
       "file": "pages/Fame/Competitive.jsx",
-      "line": 307,
+      "line": 306,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"body2\" color=\"text.secondary\" "
     },
     {
       "file": "pages/Fame/Competitive.jsx",
-      "line": 395,
+      "line": 394,
       "kind": "mui-inline-scale",
       "name": "Paper",
       "snippet": "<Paper elevation={2} sx={{ p: 2, height: \"100%\", "
     },
     {
       "file": "pages/Fame/Competitive.jsx",
-      "line": 714,
+      "line": 713,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"body2\" sx={{ lineHeight: \"1\", "
     },
     {
       "file": "pages/Fame/Competitive.jsx",
-      "line": 739,
+      "line": 738,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"body2\" sx={{ lineHeight: "
     },
     {
       "file": "pages/Fame/Competitive.jsx",
-      "line": 916,
+      "line": 915,
       "kind": "mui-inline-scale",
       "name": "TextField",
       "snippet": "<TextField size=\"small\" type=\"number\" label=\"Points\" inputProps={{ min: 1 }} "
     },
     {
       "file": "pages/Fame/HallOfFame.jsx",
-      "line": 99,
+      "line": 98,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"body2\" sx={{ fontWeight: 600 }}>"
     },
     {
       "file": "pages/Fame/HallOfFame.jsx",
-      "line": 101,
+      "line": 100,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"body2\" className=\"score\" sx={{ fontWeight: 700 }}>"
     },
     {
       "file": "pages/Fame/HallOfFame.jsx",
-      "line": 144,
+      "line": 143,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"caption\" sx={{ fontWeight: 700 }}>"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 582,
+      "line": 566,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography component=\"a\" href={marketMode === \"player\" ? (s"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 722,
+      "line": 706,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography component=\"a\" href={stock.vanityUrl ? `/user"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 741,
+      "line": 725,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography component=\"a\" href={`/user/family/${stock.fa"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 832,
+      "line": 816,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography component=\"a\" href={holding.vanityUrl ? `/user/$"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 896,
+      "line": 880,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography component=\"a\" href={`/user/family/${holding.fami"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 994,
+      "line": 978,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography component=\"a\" href={holding.vanityUrl ? `/user/$"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1080,
+      "line": 1064,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography component=\"a\" href={`/user/family/${holding.fami"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1154,
+      "line": 1138,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"h5\" sx={{ fontWeight: \"bold\", mb: 1 }}>"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1164,
+      "line": 1148,
       "kind": "mui-inline-scale",
       "name": "Paper",
       "snippet": "<Paper variant=\"outlined\" sx={{ p: 2, display: \"flex\", gap: 3, backgroundColor: theme.palette.mode === \"light\" ? \"rgba(0"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1167,
+      "line": 1151,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"h6\" sx={{ fontWeight: \"bold\", color: \"error.main\" }}>"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1171,
+      "line": 1155,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"h6\" sx={{ fontWeight: \"bold\", color: user.coins >= 100 ? \"success.main\" : \"error.main\" }}>"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1177,
+      "line": 1161,
       "kind": "mui-inline-scale",
       "name": "Button",
       "snippet": "<Button variant=\"contained\" color=\"warning\" size=\"larg"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1206,
+      "line": 1190,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"h5\" sx={{ fontWeight: \"bold\", mb: 1 }}>"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1232,
+      "line": 1216,
       "kind": "mui-inline-scale",
       "name": "Paper",
       "snippet": "<Paper variant=\"outlined\" sx={{ p: 2, display: \"flex\", gap: 3, backgroundColor: theme.palette.mode === \"light\" ? \"rgba(0"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1235,
+      "line": 1219,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"h6\" sx={{ fontWeight: \"bold\", color: \"error.main\" }}>"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1239,
+      "line": 1223,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"h6\" sx={{ fontWeight: \"bold\", color: user.coins >= 200 ? \"success.main\" : \"error.main\" }}>"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1245,
+      "line": 1229,
       "kind": "mui-inline-scale",
       "name": "Button",
       "snippet": "<Button variant=\"contained\" color=\"info\" size=\"large\" "
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1344,
+      "line": 1316,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography component=\"a\" href={tx.subjectVanityUrl "
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1361,
+      "line": 1333,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography component=\"a\" href={`/user/family/${tx.f"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1387,
+      "line": 1359,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography component=\"a\" href={tx.buyerVanityUrl ? `/user/$"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1484,
+      "line": 1456,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography component=\"a\" href={tx.buyerVanityUrl ? `/us"
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1522,
+      "line": 1494,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography component=\"a\" href={tx.subjectVanityUrl "
     },
     {
       "file": "pages/Fame/StockMarket.jsx",
-      "line": 1540,
+      "line": 1512,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography component=\"a\" href={`/user/family/${tx.f"
@@ -1718,28 +1719,28 @@
     },
     {
       "file": "pages/Learn/Setup/SetupPage.jsx",
-      "line": 699,
+      "line": 696,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"overline\" sx={{ fontSize: \"0.7rem\", "
     },
     {
       "file": "pages/Learn/Setup/SetupPage.jsx",
-      "line": 750,
+      "line": 739,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography component=\"span\" sx={{ fontWeight: 700, fontSize: \"1.25rem\" "
     },
     {
       "file": "pages/Learn/Setup/SetupPage.jsx",
-      "line": 756,
+      "line": 745,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography component=\"span\" variant=\"body2\" sx="
     },
     {
       "file": "pages/Learn/Setup/SetupPage.jsx",
-      "line": 896,
+      "line": 862,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography component=\"span\" variant=\"body2\" "
@@ -1870,14 +1871,6 @@
       "snippet": "<Typography sx={{ fontFamily: \"RobotoSlab\", fontWeight: 700, "
     },
     {
-      "file": "pages/Play/LobbyBrowser/LobbyBrowser.jsx",
-      "line": 337,
-      "kind": "native-form",
-      "scope": "site",
-      "name": "button",
-      "snippet": "<button key={value} type=\"button\" aria-pressed={statusFilter === value} onClick={() => setStatusFilter(value)}>"
-    },
-    {
       "file": "pages/Play/Tutorial/TutorialPicker.jsx",
       "line": 70,
       "kind": "mui-inline-scale",
@@ -1940,14 +1933,14 @@
     },
     {
       "file": "pages/Policy/Moderation/BanAppeals.jsx",
-      "line": 463,
+      "line": 393,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography key={action.id} variant=\"body2\" sx={{ fontWeight: action.iss"
     },
     {
       "file": "pages/Policy/Moderation/BanAppeals.jsx",
-      "line": 494,
+      "line": 424,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography sx={{ fontWeight: 600 }}>"
@@ -2059,21 +2052,21 @@
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 1393,
+      "line": 1387,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"caption\" sx={{ flexShrink: \"1\", "
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 1407,
+      "line": 1401,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"caption\" sx={{ filter: \"opacity(.75)\", "
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 1560,
+      "line": 1554,
       "kind": "native-widget",
       "scope": "site",
       "name": "button",
@@ -2081,77 +2074,91 @@
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 1831,
+      "line": 1825,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"h4\" sx={{ fontWeight: \"bold\", color: goldColor, display: \"flex\", alignItems: \"center\", gap: 0.5 }}>"
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 1845,
+      "line": 1839,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"body2\" sx={{ fontWeight: \"bold\" }}>"
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 1853,
+      "line": 1847,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"body2\" sx={{ fontWeight: \"bold\", color: goldColor, display: \"flex\", alignItems: \"center\", gap: 0.5 "
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 1861,
+      "line": 1855,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"body2\" sx={{ fontWeight: \"bold\", color: stockInfo.sharesOwned > 0 ? \"success.main\" : \"text.secondar"
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 1869,
+      "line": 1863,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"body2\" sx={{ fontWeight: \"bold\", color: goldColor, display: \"flex\", alignItems: \"center\", gap: 0.5 "
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 1876,
+      "line": 1870,
       "kind": "mui-inline-scale",
       "name": "Button",
       "snippet": "<Button variant=\"contained\" color=\"primary\" fullWidth "
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 1946,
+      "line": 1917,
       "kind": "mui-inline-scale",
       "name": "Paper",
       "snippet": "<Paper variant=\"outlined\" sx={{ p:"
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 1969,
+      "line": 1940,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"h5\" sx={{ fontWeight: 800, color: \"text.primary\" }}>"
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 1973,
+      "line": 1944,
       "kind": "mui-inline-scale",
       "name": "Paper",
       "snippet": "<Paper sx={{ px: 1, "
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 1989,
+      "line": 1960,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"body2\" color=\"text.primary\" sx={{ fontWeight: 600 }}>"
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 2002,
+      "line": 1973,
+      "kind": "mui-inline-scale",
+      "name": "Typography",
+      "snippet": "<Typography variant=\"body2\" sx={{ fontWeight: \"bold\" }}>"
+    },
+    {
+      "file": "pages/User/Profile.jsx",
+      "line": 1981,
+      "kind": "mui-inline-scale",
+      "name": "Typography",
+      "snippet": "<Typography variant=\"body2\" sx={{ fontWeight: \"bold\" }}>"
+    },
+    {
+      "file": "pages/User/Profile.jsx",
+      "line": 1989,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"body2\" sx={{ fontWeight: \"bold\" }}>"
@@ -2160,33 +2167,19 @@
       "file": "pages/User/Profile.jsx",
       "line": 2010,
       "kind": "mui-inline-scale",
-      "name": "Typography",
-      "snippet": "<Typography variant=\"body2\" sx={{ fontWeight: \"bold\" }}>"
-    },
-    {
-      "file": "pages/User/Profile.jsx",
-      "line": 2018,
-      "kind": "mui-inline-scale",
-      "name": "Typography",
-      "snippet": "<Typography variant=\"body2\" sx={{ fontWeight: \"bold\" }}>"
-    },
-    {
-      "file": "pages/User/Profile.jsx",
-      "line": 2041,
-      "kind": "mui-inline-scale",
       "name": "Button",
       "snippet": "<Button variant=\"text\" size=\"small\" onClic"
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 2296,
+      "line": 2266,
       "kind": "mui-inline-scale",
       "name": "Typography",
       "snippet": "<Typography variant=\"body2\" sx={{ fontWeight: entry.isCurr"
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 2470,
+      "line": 2440,
       "kind": "native-form",
       "scope": "site",
       "name": "select",
@@ -2194,7 +2187,7 @@
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 2476,
+      "line": 2446,
       "kind": "native-form",
       "scope": "site",
       "name": "input",
@@ -2202,7 +2195,7 @@
     },
     {
       "file": "pages/User/Profile.jsx",
-      "line": 2594,
+      "line": 2564,
       "kind": "native-form",
       "scope": "site",
       "name": "select",
@@ -2266,28 +2259,28 @@
     },
     {
       "file": "pages/User/Shop.jsx",
-      "line": 438,
+      "line": 437,
       "kind": "mui-inline-scale",
       "name": "Paper",
       "snippet": "<Paper sx={{ p: 2, height: \"100%\" }}>"
     },
     {
       "file": "pages/User/Shop.jsx",
-      "line": 495,
+      "line": 494,
       "kind": "mui-inline-scale",
       "name": "Paper",
       "snippet": "<Paper sx={{ p: 2, height: \"100%\" }}>"
     },
     {
       "file": "pages/User/Shop.jsx",
-      "line": 509,
+      "line": 508,
       "kind": "mui-inline-scale",
       "name": "Paper",
       "snippet": "<Paper sx={{ p: 2, height: \"100%\" }}>"
     },
     {
       "file": "pages/User/Shop.jsx",
-      "line": 576,
+      "line": 575,
       "kind": "mui-inline-scale",
       "name": "Paper",
       "snippet": "<Paper sx={{ position: \"absolute\", zIndex: 1301, l"

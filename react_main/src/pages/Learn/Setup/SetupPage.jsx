@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { UiSection, UiAction, UiField, UiStatRow, UiStat, UiPageHeader, UiTabs, UiTab, UiTable, confirmAction } from "components/ui";
+import { UiSection, UiAction, UiField, UiStatRow, UiStat, UiPageHeader, UiTabs, UiTab, UiTable, UiSegmentedControl, UiVoteControl, confirmAction } from "components/ui";
 import {
   Link as RouterLink,
   Route,
@@ -17,8 +17,6 @@ import {
   MenuItem,
   Select,
   Stack,
-  ToggleButton,
-  ToggleButtonGroup,
   Tooltip,
   Typography,
   useMediaQuery,
@@ -43,7 +41,6 @@ import { NameWithAvatar } from "pages/User/UserWidgets";
 import { TextEditor } from "components/Form";
 import CustomMarkdown from "components/CustomMarkdown";
 import { Loading } from "components/Loading";
-import { VoteWidget } from "components/VoteWidget";
 
 import { RoleCount } from "components/Roles";
 import { PieChart } from "./PieChart";
@@ -554,6 +551,12 @@ export function SetupPage() {
         leading={<GameIcon gameType={setup.gameType} size={32} />}
         actions={
           <div className="setup-header-actions">
+            <UiVoteControl
+              ariaLabel="Rate this setup"
+              item={{ id: setup.id, vote: setup.vote ?? 0, voteCount: setup.voteCount ?? 0 }}
+              itemType="setup"
+              setItemHolder={(newItem) => setSetup(previous => previous?.id === newItem.id ? { ...previous, vote: newItem.vote, voteCount: newItem.voteCount } : previous)}
+            />
             <UiAction variant="primary" onClick={() => setIshostGameDialogueOpen(true)}>
               Host game
             </UiAction>
@@ -660,12 +663,6 @@ export function SetupPage() {
               {user.loggedIn && (
                 <UiSection title="Save or customize" className="setup-save-section">
                   <div className="setup-save-panel">
-                    <div className="setup-rating-row">
-                      <span>Community rating</span>
-                      <div className="role-vote-pill">
-                        <VoteWidget item={{ id: setup.id, vote: setup.vote ?? 0, voteCount: setup.voteCount ?? 0 }} itemType="setup" setItemHolder={(newItem) => setSetup(previous => previous?.id === newItem.id ? { ...previous, vote: newItem.vote, voteCount: newItem.voteCount } : previous)} />
-                      </div>
-                    </div>
                     <div className="setup-save-actions">
                       <SetupManipulationButtons setup={setup} onFav={onFavSetup} onEdit={onEditSetup} onCopy={onCopySetup} onDel={onDelSetup} showLabels />
                     </div>
@@ -707,34 +704,26 @@ export function SetupPage() {
                   >
                     Game type
                   </Typography>
-                  <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                    {[
-                      { value: "all", label: "All" },
-                      { value: "unranked", label: "Unranked" },
-                      { value: "ranked", label: "Ranked" },
-                      { value: "competitive", label: "Competitive" },
-                      { value: "rankedComp", label: "Ranked + Comp" },
-                    ].map((opt) => {
-                      const selected = statsGameFilter === opt.value;
-                      const g = getGranularForFilter(opt.value);
-                      const hasData =
-                        !!g &&
-                        ((g.alignment && g.alignment.length > 0) ||
-                          (g.role && g.role.length > 0));
-                      return (
-                        <UiAction
-                          key={opt.value}
-                          variant="ghost"
-                          className={`setup-filter${selected ? " is-selected" : ""}`}
-                          disabled={!hasData}
-                          aria-pressed={selected}
-                          onClick={() => hasData && setStatsGameFilter(opt.value)}
-                        >
-                          {opt.label}
-                        </UiAction>
-                      );
-                    })}
-                  </Stack>
+                                      <UiSegmentedControl
+                      ariaLabel="Game type"
+                      value={statsGameFilter}
+                      onChange={setStatsGameFilter}
+                      options={[
+                        { value: "all", label: "All" },
+                        { value: "unranked", label: "Unranked" },
+                        { value: "ranked", label: "Ranked" },
+                        { value: "competitive", label: "Competitive" },
+                        { value: "rankedComp", label: "Ranked + Comp" },
+                      ].map((option) => {
+                        const granular = getGranularForFilter(option.value);
+                        return {
+                          ...option,
+                          disabled: !granular ||
+                            !((granular.alignment && granular.alignment.length > 0) ||
+                              (granular.role && granular.role.length > 0)),
+                        };
+                      })}
+                    />
                 </Stack>
               </Grid>
               <Grid item xs={12}>
@@ -761,38 +750,15 @@ export function SetupPage() {
                         {`· Total: ${versionGamesPlayed} games`}
                       </Typography>
                     </Box>
-                    <ToggleButtonGroup
-                      size="small"
-                      exclusive
+                    <UiSegmentedControl
+                      ariaLabel="Win rate breakdown"
                       value={statsViewMode}
-                      onChange={(_, v) => v && setStatsViewMode(v)}
-                      sx={{
-                        borderRadius: 999,
-                        backgroundColor: "action.hover",
-                        padding: "3px",
-                        border: 1,
-                        borderColor: "divider",
-                        "& .MuiToggleButton-root": {
-                          px: 2,
-                          py: 0.25,
-                          fontSize: "0.75rem",
-                          textTransform: "none",
-                          fontWeight: 600,
-                          border: "none",
-                          borderRadius: "999px !important",
-                          color: "text.secondary",
-                          "&:hover": { backgroundColor: "action.hover" },
-                        },
-                        "& .MuiToggleButton-root.Mui-selected": {
-                          backgroundColor: "action.selected",
-                          color: "text.primary",
-                          "&:hover": { backgroundColor: "action.selected" },
-                        },
-                      }}
-                    >
-                      <ToggleButton value="alignment">Alignment</ToggleButton>
-                      <ToggleButton value="role">Role</ToggleButton>
-                    </ToggleButtonGroup>
+                      onChange={setStatsViewMode}
+                      options={[
+                        { value: "alignment", label: "Alignment" },
+                        { value: "role", label: "Role" },
+                      ]}
+                    />
                   </Stack>
                   <Box sx={{ maxWidth: 720, px: 0, pb: 2 }}>
                     {statsBundle?.hasGranular ? (
@@ -920,7 +886,7 @@ export function SetupPage() {
             </>
           }
           right={
-            <UiSection title="Lineage" className="ui-card">
+            <UiSection title="Lineage">
               <div className="content">
                 {lineage == null ? (
                   <Typography variant="body2" color="text.secondary">

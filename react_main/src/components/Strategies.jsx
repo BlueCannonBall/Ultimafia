@@ -217,22 +217,8 @@ function StrategiesBase({
       .finally(() => setSubmitting(false));
   };
 
-  const renderHeader = () => {
-    // Inside a floating window the title bar already names the guide, so the
-    // body only carries the actions.
-    if (hideTitle && !canCreate) return null;
-
-    return (
-      <Stack
-        direction="row"
-        spacing={1}
-        sx={{ alignItems: "center", width: "100%" }}
-      >
-        {hideTitle ? (
-          <Box sx={{ flexGrow: 1 }} />
-        ) : (
-          <Typography sx={{ flexGrow: 1 }}>Strategies</Typography>
-        )}
+  const headerActions = (
+    <>
         {canPopout && (
           <Tooltip title="Open guides in a floating window">
             <IconButton
@@ -250,6 +236,26 @@ function StrategiesBase({
             <UiIcon name="add" />
           </IconButton>
         )}
+    </>
+  );
+
+  const renderHeader = () => {
+    // Inside a floating window the title bar already names the guide, so the
+    // body only carries the actions.
+    if (hideTitle && !canCreate) return null;
+
+    return (
+      <Stack
+        direction="row"
+        spacing={1}
+        sx={{ alignItems: "center", width: "100%" }}
+      >
+        {hideTitle ? (
+          <Box sx={{ flexGrow: 1 }} />
+        ) : (
+          <Typography sx={{ flexGrow: 1 }}>Strategies</Typography>
+        )}
+        {headerActions}
       </Stack>
     );
   };
@@ -351,6 +357,7 @@ function StrategiesBase({
               itemHolder={strategies}
               setItemHolder={voteAwareSetter}
               itemType="strategy"
+              variant="row"
             />
             {strategy.author && (
               <Box
@@ -702,7 +709,9 @@ function StrategiesBase({
   }
 
   if (variant === "section") return <>
-    <UiSection className="strategy-section">{header}{listContent}</UiSection>
+    <UiSection title="Strategies" className="strategy-section" actions={headerActions}>
+      {listContent}
+    </UiSection>
     {dialog}{reader}
   </>;
 

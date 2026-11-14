@@ -79,7 +79,6 @@
 .moderation-table tbody tr:hover { background: var(--scheme-color-sec); }
 .moderation-case-section { padding: 16px 0; border-bottom: 1px solid var(--scheme-color-border); }
 .moderation-case-section h3 { margin: 0 0 10px; font-size: var(--ui-text-body); }
-.moderation-ban-appeals .MuiToggleButton-root { text-transform: none; }
 @media (max-width: 800px) {
   .moderation-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .moderation-list-row { flex-direction: column; }

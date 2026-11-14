@@ -14,7 +14,10 @@
 .profile-avatar { flex-shrink: 0; }
 .profile-affiliations { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; font-size: var(--ui-text-small); color: var(--um-muted); }
 .profile-family, .profile-relationship { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; color: inherit; }
-.profile.profile-rebuilt .profile-actions .options { flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 4px; }
+/* The header action icons are direct children of .profile-header-panel; the
+   old .profile-actions selector never matched the rendered DOM, so the three
+   buttons sat flush together with a zero gap. */
+.profile-header-panel .options { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; }
 .profile-section { min-width: 0; scroll-margin-top: 56px; }
 .profile-section > h2 { margin: 0 0 10px; font-size: var(--ui-text-heading); line-height: var(--ui-line-heading); }
 .profile-section .box-panel { margin-bottom: 0; }
@@ -36,8 +39,6 @@
 @media (max-width: 600px) {
   .profile-identity-row { flex-direction: column; align-items: stretch; padding: 16px; gap: 12px; }
   .profile-identity { gap: 12px; }
-  .profile.profile-rebuilt .profile-actions .options { justify-content: flex-start; }
-  .profile.profile-rebuilt .profile-actions > .MuiStack-root { align-items: flex-start; }
   .profile-rebuilt .banner { aspect-ratio: 3; }
   .profile-statistics-overview { flex-direction: column; align-items: stretch; }
   .profile-statistics-overview .pie-chart { align-self: center; }

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { UserContext, SiteInfoContext } from "Contexts";
-import { UiAction, UiDialog, UiField, UiIcon, UiPending, UiPageHeader } from "components/ui";
+import { UiAction, UiDialog, UiField, UiIcon, UiPending, UiPageHeader, UiSegmentedControl } from "components/ui";
 import { PageNav } from "components/Nav";
 import { VoteWidget } from "components/VoteWidget";
 import AnonymousDeck from "components/Deck";
@@ -70,7 +70,16 @@ export default function DeckLibrary({ words = false }) {
   return <div className="deck-library">
     <UiPageHeader title={title} actions={<Link className="ui-action ui-action--primary" to={user.loggedIn ? `/play/${editor}` : "/welcome"}>{user.loggedIn ? "Create deck" : "Sign in to create"}</Link>} />
     <p>{words ? "Browse word lists for Draw It." : "Browse anonymous character names and avatars for games."}</p>
-    <div className="deck-library-toolbar"><div role="group" aria-label="Deck collections">{["featured", "popular", "yours"].map(value => <UiAction key={value} variant="ghost" aria-pressed={collection === value && !search} disabled={value === "yours" && !user.loggedIn} onClick={() => { setCollection(value); setSearch(""); setPage(1); }}>{value[0].toUpperCase() + value.slice(1)}</UiAction>)}</div>
+    <div className="deck-library-toolbar"><UiSegmentedControl
+      ariaLabel="Deck collections"
+      value={collection}
+      onChange={(value) => { setCollection(value); setSearch(""); setPage(1); }}
+      options={[
+        { value: "featured", label: "Featured" },
+        { value: "popular", label: "Popular" },
+        { value: "yours", label: "Yours", disabled: !user.loggedIn },
+      ]}
+    />
       <UiField type="search" label="Search decks" value={search} onChange={event => { setSearch(event.target.value); setPage(1); }} />
     </div>
     {slots && <p className="directory-summary">{slots.owned} / {slots.purchased} deck slots used · <Link to={`/user/shop?buy=${words ? "wordDeck" : "anonymousDeck"}`}>Buy more slots</Link></p>}

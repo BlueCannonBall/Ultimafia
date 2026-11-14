@@ -44,6 +44,34 @@ to `docs/frontend-redesign/shots/`, and writes a contact sheet at
 inspect the images. The structural report cannot see computed padding overrides,
 card rhythm or inner spacing on its own.
 
+## Control roles
+
+`npm run ui:controls` renders every route and compares repeated controls rather
+than page blocks. One control role must have one implementation:
+
+- `UiSegmentedControl` — filters and data views. Setup statistics, profile
+  ratings, host collections, lobby status, deck collections, the activity
+  window, ban appeals and the stock-market modes all use it.
+- `UiVoteControl` / `VoteWidget` — page votes sit in the page header in the same
+  40px pill on setup and role pages. Comment, deck and strategy votes stay
+  inline; strategy rows use the compact horizontal variant.
+- `UiTabs` — page and panel tab strips.
+- `UiSection` — section titles, including Strategies and Fanart.
+
+The pass reports `unregistered-control` (a hand-built group, with measured
+geometry), `control-divergence` (the same role rendered differently),
+`heading-misaligned` (a section heading off its container's content edge),
+`unregistered-heading` (heading-sized bold text that is not a heading) and
+`control-placement` (a page vote outside the page header). Responsive
+treatments are compared within a width, not across widths.
+
+`npm run lint:ui` rejects pressed-state styling (`[aria-pressed]`),
+`.MuiToggleButton` rules and `.ui-segmented` / `.ui-vote` overrides in page CSS,
+so a page cannot quietly recreate a second treatment. Reviewed exceptions are
+named in `scripts/check-ui-architecture.cjs`.
+
+Current result: 73 routes at 1440 and 390, **0 findings, 0 render failures**.
+
 The scale decision is rendered at `docs/frontend-redesign/scale-preview.html`, with
 PNG captures beside it: six type sizes, five corner roles, four control heights and
 the before/after component treatment.
@@ -85,12 +113,50 @@ content order.
   differences, not container or typography divergence.
 - **Confirmations:** 37 `window.confirm` sites use the shared `confirmAction` /
   `ConfirmHost`; two deliberate exceptions remain.
-- **Debt baseline:** 307 sites, 252 actionable on site routes.
-- **Global comparison:** 108 findings, 14 high, 0 off-scale at 1440/390.
+- **Debt baseline:** 306 sites, 252 actionable on site routes.
+- **Control roles:** 0 findings at 1440 and 390. The segmented filter, page
+  vote, tab strip and section heading each have one implementation; local
+  pressed-state overrides were removed from deck, host, lobby, moderation and
+  setup CSS.
+- **Global comparison:** 90 findings, 6 high, 84 medium, 0 off-scale at 1440/390.
   Geometry checks cover per-side card padding, card gap spread, cross-page gap
   divergence, comment tail padding and double card padding.
-- **Remaining high findings:** 14, in reference, directories, moderation, longform
-  and activity — mostly table/section primitive splits.
+- **Reference pages:** setup and role share `UiSection` sections and the same
+  discussion container. Reference has 0 high findings.
+- **Tables:** the competitive FAQ prestige table and the ban-appeals queue use
+  `UiTable`; long-form and moderation have 0 high table findings.
+- **Tutorial:** the page used `h6` for the intro, the section title and the role
+  cards, at three rendered sizes. It now uses body text for the intro, an `h2`
+  section title and `h3` card titles; the heading-level and size-variance
+  findings are gone.
+- **Activity feed:** the rows are grouped in a `UiSection` landmark. The remaining
+  activity high is the family comparator treating `<article>` feed rows as page
+  sections; it compares a row container with the metrics page's section
+  containers. The rows are not restyled into cards to satisfy that number.
+- **Phone controls:** the segmented control is as wide as its choices, not the
+  column. It fades at the right edge only while it scrolls. The selected label
+  uses the theme text color, so a custom accent cannot make it unreadable; the
+  accent remains the tint and border.
+- **Differential renders:** `test/render-diff.cjs` compared 23 affected routes
+  against the previous commit. Eight unaffected routes were pixel-identical.
+  The changed crops are in `docs/frontend-redesign/controls/diff/`; they exposed
+  the host filter clipping, the deck filter's empty half and the tutorial heading
+  hierarchy, all now fixed.
+- **Reference details:** Strategies uses a `UiSection` title with its actions in
+  the section header. Fanart is a `UiSection` owned by `FanartPanel`, so its
+  heading aligns with every other section. The role and setup vote pills share
+  the header placement and geometry.
+- **Today's control migration:** shop, Hall of Fame, stocks, competitive and
+  authentication tabs use `UiTabs`; the forum thread title is an `h1`. The
+  segment conversions cover lobby status, deck collections, activity windows,
+  quick filters and both market-mode rows.
+- **Family-report caveat:** the remaining high findings are
+  `container-mismatch` between unlike blocks: feed `<article>` rows, tutorial
+  choice cards and the players page's continuous sections. The comparator calls
+  all of them a "section" and compares their containers. Those pages are not
+  restyled into matching cards just to make that number green; the family is too
+  broad for that check. The control pass and inspected renders are the acceptance
+  gates for this batch.
 
 ## Why families
 

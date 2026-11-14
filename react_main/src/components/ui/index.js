@@ -14,6 +14,8 @@ export { default as UiBreadcrumb } from "./UiBreadcrumb";
 export { default as MessageComposer } from "./MessageComposer";
 export { default as UiField } from "./UiField";
 export { default as UiTabs } from "./UiTabs";
+export { default as UiSegmentedControl } from "./UiSegmentedControl";
+export { default as UiVoteControl } from "./UiVoteControl";
 export { Typography as UiText, Autocomplete as UiAutocomplete } from "@mui/material";
 export { Select as UiSelect, Menu as UiMenu, MenuItem as UiMenuItem, Tab as UiTab, Checkbox as UiCheckbox, Radio as UiRadio, RadioGroup as UiRadioGroup, Switch as UiSwitch, Slider as UiSlider } from "@mui/material";
 export { uiTokens } from "./designTokens";

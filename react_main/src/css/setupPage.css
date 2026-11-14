@@ -17,9 +17,6 @@
 .setup-creator-byline { display: inline-flex; align-items: center; gap: 6px; font-size: var(--ui-text-small); color: var(--um-muted); }
 .setup-archive-action.ui-action { min-height: 24px; padding: 2px 8px; font-size: var(--ui-text-caption); }
 .setup-save-panel { display: flex; flex-direction: column; gap: 12px; }
-.setup-rating-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--scheme-color-border); }
-.setup-rating-row > span { color: var(--um-muted); font-size: var(--ui-text-small); }
-.setup-rating-row .MuiStack-root { flex-direction: row; align-items: center; }
 .setup-save-actions > .MuiStack-root { display: flex !important; flex-wrap: wrap !important; gap: 8px !important; }
 .setup-save-actions .MuiStack-root > span,
 .setup-save-actions .MuiStack-root > .ui-action {
@@ -182,11 +179,9 @@
 .role-artists { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; color: var(--um-muted); font-size: var(--ui-text-small); }
 .role-meta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
 .role-hero-actions { display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.role-hero-actions .role-vote-pill { display: inline-flex; align-items: center; padding: 2px 6px; border: 1px solid var(--scheme-color-border); border-radius: var(--ui-radius); background: var(--scheme-color-sec); }
-.role-hero-actions .role-vote-pill > .MuiStack-root { flex-direction: row; align-items: center; gap: 2px; }
 .role-hero-actions > .MuiStack-root:first-child { flex-direction: row; align-items: center; gap: 2px; padding-right: 10px; border-right: 1px solid var(--scheme-color-border); }
 .role-fanart-section { max-width: var(--ui-reading-width); }
-.role-info { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.role-info { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 .role-info > h2 { margin: 0; font-size: var(--ui-text-heading); line-height: var(--ui-line-heading); }
 .role-description { max-width: var(--ui-reading-width); }
 .role-description p { margin: 0 0 10px; line-height: 1.6; }
@@ -204,38 +199,4 @@
   .role-skin-control { width: 100%; }
   .role-skin-control .MuiFormControl-root { flex: 1; min-width: 0; }
 }
-.setup-filter {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 12px;
-  border: 1px solid var(--scheme-color-border) !important;
-  border-radius: var(--ui-radius);
-  background: transparent;
-  color: var(--scheme-color-text);
-  font: inherit;
-  font-size: var(--ui-text-small);
-  font-weight: 500;
-  cursor: pointer;
-  line-height: 1.4;
-  min-height: 32px;
-  box-sizing: border-box;
-}
-.setup-filter:hover:not(:disabled) {
-  background: var(--scheme-color-sec);
-  border-color: var(--scheme-color-border) !important;
-}
-.setup-filter.is-selected,
-.setup-filter[aria-pressed="true"] {
-  border-color: var(--um-accent) !important;
-  background: color-mix(in srgb, var(--um-accent) 14%, transparent) !important;
-  color: var(--um-accent) !important;
-  font-weight: 600;
-}
-.setup-filter:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-  border-color: var(--scheme-color-border) !important;
-}
-
 .setup-stats { margin-bottom: 16px; }

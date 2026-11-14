@@ -1285,14 +1285,14 @@ function Post(props) {
         <div className="heading">
           <div className="heading-left">
             {hasTitle && (
-              <div className="title">
+              <h1 className="title">
                 {locked && <i className="fas fa-lock" />}
                 {postInfo.pinned && <i className="fas fa-thumbtack" />}
                 {postInfo.restricted && (
                   <i className="fas fa-user-lock" title="Restricted thread" />
                 )}
                 {postInfo.title}
-              </div>
+              </h1>
             )}
             <div className="author-row">
               <div className="post-info">

@@ -21,7 +21,12 @@ const scalePattern = /fontSize|fontWeight|lineHeight|borderRadius|padding|height
 const nativeNames = new Set(["button", "input", "select", "textarea", "dialog"]);
 // The confirmation service is the single sanctioned native fallback when no
 // React host is mounted. It is infrastructure, not a call site to migrate.
-const sanctioned = new Set(["components/ui/confirm.jsx"]);
+const sanctioned = new Set([
+  "components/ui/confirm.jsx",
+  // The segmented control's option is a native button by design; it is the
+  // shared primitive, not a page-level raw control.
+  "components/ui/UiSegmentedControl.jsx",
+]);
 
 function sourceFiles(directory) {
   const files = [];

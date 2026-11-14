@@ -55,7 +55,7 @@ const UiTabs = forwardRef(function UiTabs({ value, orientation = "horizontal", .
     return () => { observer.disconnect(); mutations.disconnect(); scroller.removeEventListener("transitionend", keepSelectedVisible, true);
       cancelAnimationFrame(frame); clearTimeout(late); clearTimeout(later); };
   }, [value, orientation]);
-  return <Tabs {...props} value={value} orientation={orientation} ref={root} />;
+  return <Tabs {...props} value={value} orientation={orientation} ref={root} data-ui-control="tabs" />;
 });
 
 export default UiTabs;

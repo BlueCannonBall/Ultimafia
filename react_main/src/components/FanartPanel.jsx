@@ -17,7 +17,7 @@ import {
 import { UserContext } from "Contexts";
 import { useErrorAlert } from "./Alerts";
 import ImageViewer from "./ImageViewer";
-import { confirmAction } from "components/ui";
+import { confirmAction, UiSection } from "components/ui";
 
 export default function FanartPanel({ roleId }) {
   const user = useContext(UserContext);
@@ -152,36 +152,24 @@ export default function FanartPanel({ roleId }) {
 
   return (
     <>
-      <Stack direction="column" spacing={1}>
-        <Stack
-          direction="row"
-          spacing={1}
-          sx={{ alignItems: "center", width: "100%", px: 1 }}
-        >
-          <Typography
-            sx={{
-              flexGrow: 1,
-              fontWeight: 700,
-              fontSize: "1.15rem",
-              letterSpacing: "0.01em",
+      <UiSection
+        title="Fanart"
+        className="role-fanart-section"
+        actions={canCreate && (
+          <IconButton
+            size="small"
+            aria-label="Add fanart"
+            onClick={() => {
+              setTitle("");
+              setFile(null);
+              setDialogOpen(true);
             }}
           >
-            Fanart
-          </Typography>
-          {canCreate && (
-            <IconButton
-              size="small"
-              onClick={() => {
-                setTitle("");
-                setFile(null);
-                setDialogOpen(true);
-              }}
-            >
-              <i className="fas fa-plus" />
-            </IconButton>
-          )}
-        </Stack>
-
+            <i className="fas fa-plus" />
+          </IconButton>
+        )}
+      >
+        <Stack direction="column" spacing={1}>
         {loading ? (
           <Typography variant="body2" sx={{ opacity: 0.7 }}>
             Loading fanart...
@@ -360,7 +348,8 @@ export default function FanartPanel({ roleId }) {
             )}
           </Stack>
         )}
-      </Stack>
+        </Stack>
+      </UiSection>
       {viewerUrl && (
         <ImageViewer imageUrl={viewerUrl} onClose={() => setViewerUrl(null)} />
       )}

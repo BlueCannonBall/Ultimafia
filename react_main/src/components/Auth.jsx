@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UiAction, UiField, UiIcon } from "components/ui";
+import { UiAction, UiField, UiIcon, UiTabs, UiTab } from "components/ui";
 import {
   LinearProgress,
   Tabs,
-  Tab,
   Box,
   Stack,
   Typography,
@@ -774,15 +773,15 @@ export const Auth = ({ defaultTab = 0, open, onClose, asDialog = false }) => {
 
   const authContent = (
     <Box sx={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
-      <Tabs
+      <UiTabs
         value={tabValue}
         onChange={handleTabChange}
         aria-label="authentication tabs"
         sx={{ borderBottom: 1, borderColor: "divider", flexShrink: 0 }}
       >
-        <Tab label="Login" id={`${tabId}-login`} aria-controls={`${tabId}-panel-login`} />
-        <Tab label="Register" id={`${tabId}-register`} aria-controls={`${tabId}-panel-register`} />
-      </Tabs>
+        <UiTab label="Login" id={`${tabId}-login`} aria-controls={`${tabId}-panel-login`} />
+        <UiTab label="Register" id={`${tabId}-register`} aria-controls={`${tabId}-panel-register`} />
+      </UiTabs>
       <Box 
         role="tabpanel" id={`${tabId}-panel-login`} aria-labelledby={`${tabId}-login`}
         hidden={tabValue !== 0}

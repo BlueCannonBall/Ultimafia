@@ -10,7 +10,10 @@ const controls = new Set(["Button", "IconButton", "TextField", "Typography", "Di
 const legacyHeaders = /(?:^|\s)(?:page-heading|forum-directory-heading|moderation-heading|setup-editor-heading|deck-editor-heading)(?:\s|$)/;
 // This is an in-game information panel, not a site page title. Preserving its
 // competitive-workspace geometry is intentional; no site page is exempt.
-const headingAllowlist = { "pages/Game/Game.jsx": { "title:h1": 1, reason: "Existing mobile Game info panel; not site navigation or a page shell" } };
+const headingAllowlist = {
+  "pages/Game/Game.jsx": { "title:h1": 1, reason: "Existing mobile Game info panel; not site navigation or a page shell" },
+  "pages/Community/Forums/Thread.jsx": { "title:h1": 1, reason: "Forum thread title is the document heading inside the post surface; there is no page header on the thread route" },
+};
 const headingCssAllowlist = {
   "css/redesign.css": { ".game-mobile-info h1": "Existing competitive mobile information-panel hierarchy" },
   "css/markdown.css": { ".md-content h1, .md-content h2, .md-content h3, .md-content h4, .md-content h5, .md-content h6": "Authored Markdown, not a product page header" },
@@ -106,6 +109,9 @@ function cssViolations(source, filename) {
     if (/\.ui-step-(?:navigation|position|destination|message)\b/.test(selector)) violations.push(`${filename}: step navigation presentation belongs in components/ui/ui.css, not ${selector}`);
     if (/\.(?:cell-search-grid|cell-search-item|role-cell)(?:\b|-)/.test(selector)) violations.push(`${filename}: removed legacy reference selector ${selector}`);
     if (/\bh1\b/.test(selector) && !headingCssAllowlist[filename]?.[selector.replace(/\s+/g, " ")]) violations.push(`${filename}: page-title CSS belongs in components/ui/ui.css; authored-content exceptions require review: ${selector}`);
+    if (/\[aria-pressed(?:\s|\]|=)/.test(selector) && filename !== "css/game.css") violations.push(`${filename}: pressed-state control styling belongs in components/ui/ui.css, not ${selector}`);
+    if (/\.MuiToggleButton\b/.test(selector)) violations.push(`${filename}: toggle styling belongs in components/ui/ui.css, not ${selector}`);
+    if (/\.(?:ui-segmented|ui-vote)(?:\b|--)/.test(selector)) violations.push(`${filename}: shared control styling belongs in components/ui/ui.css, not ${selector}`);
   }
   return violations;
 }

@@ -25,11 +25,10 @@ import { Loading } from "../../../components/Loading";
 import { RoleCount } from "../../../components/Roles";
 import { getAlignmentColor } from "../../../components/Setup";
 import { ExtraRoleData } from "../../../constants/ExtraRoleData";
-import { VoteWidget } from "../../../components/VoteWidget";
 import TwoPanelLayout from "../../../components/SetupProfileLayout";
 import FanartPanel from "../../../components/FanartPanel";
 import { useIsPhoneDevice } from "hooks/useIsPhoneDevice";
-import { UiAction, UiField, UiIcon, UiPageHeader } from "components/ui";
+import { UiAction, UiField, UiIcon, UiPageHeader, UiSection, UiVoteControl } from "components/ui";
 
 export default function RolePage() {
   return <RoleThings />;
@@ -202,15 +201,14 @@ export function RoleThings() {
 
   let specialBox = null;
   if (role[1].SpecialInteractions && Object.keys(role[1].SpecialInteractions).length > 0) {
-    specialBox = <section className="role-info-section">
-      <h3>Special interactions</h3>
+    specialBox = <UiSection title="Special interactions" headingLevel={3} className="role-info-section">
       <ul className="role-interactions">
         {Object.entries(role[1].SpecialInteractions).map(([name, interaction]) => <li key={name}>
           <RoleCount scheme="vivid" role={name} gameType="Mafia" />
           <p><strong>{name}</strong>: {interaction[0]}</p>
         </li>)}
       </ul>
-    </section>;
+    </UiSection>;
   }
 
   let overrideBox;
@@ -259,10 +257,9 @@ export function RoleThings() {
   let examples;
   let exampleData = ExtraRoleData["Mafia"][role[0]];
   if (exampleData && exampleData.examples) {
-    examples = <section className="role-info-section">
-      <h3>Examples</h3>
+    examples = <UiSection title="Examples" headingLevel={3} className="role-info-section">
       <ol className="role-examples">{exampleData.examples.map((line, index) => <li key={index}>{line}</li>)}</ol>
-    </section>;
+    </UiSection>;
   } else {
     examples = null;
   }
@@ -336,9 +333,12 @@ export function RoleThings() {
             <span className="role-alignment" style={{ color: alignmentColor }}>{role[1].alignment}</span>
             {sortedTags.length > 0 && <ul className="role-tags" aria-label="Role tags">{sortedTags.map(tag => <li key={tag}>{tag}</li>)}</ul>}
             <div className="role-hero-actions">
-              <div className="role-vote-pill">
-                <VoteWidget item={roleVoteItem} itemType="role" setItemHolder={(newItem) => setRoleVoteState({ vote: newItem.vote ?? 0, voteCount: newItem.voteCount ?? 0 })} />
-              </div>
+              <UiVoteControl
+                ariaLabel="Rate this role"
+                item={roleVoteItem}
+                itemType="role"
+                setItemHolder={(newItem) => setRoleVoteState({ vote: newItem.vote ?? 0, voteCount: newItem.voteCount ?? 0 })}
+              />
               {user.loggedIn && <UiAction variant={isFavorited ? "primary" : "secondary"} aria-pressed={isFavorited} onClick={onFavRole}><UiIcon name={isFavorited ? "starFilled" : "star"} />{isFavorited ? "Favorited" : "Favorite role"}</UiAction>}
             </div>
           </div>
@@ -352,17 +352,14 @@ export function RoleThings() {
           </div>
           {artists.length > 0 && <div className="role-artists"><span>Icon artists</span>{artists}</div>}
       </UiPageHeader>
-      <section className="role-info">
-        <h2>Role info</h2>
+      <UiSection title="Role info" className="role-info">
         {description}
         {examples}
         {specialBox}
         {overrideBox}
-      </section>
-      <section className="role-fanart-section">
-        <FanartPanel roleId={roleId} />
-      </section>
-      <section className="role-comments"><h2>Discussion</h2><Comments location={commentLocation} fullWidth /></section>
+      </UiSection>
+      <FanartPanel roleId={roleId} />
+      <UiSection title="Discussion" className="role-comments"><Comments location={commentLocation} fullWidth /></UiSection>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, ButtonBase, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
+import { UiSegmentedControl } from "components/ui";
 
 export const WINDOWS = [
   { label: "24H", fullLabel: "Last 24 hours", value: "24h" },
@@ -14,51 +15,12 @@ export function formatSnapshotTime(d) {
 }
 
 export function WindowSegment({ value, onChange }) {
-  return (
-    <Box
-      role="group"
-      aria-label="Time window"
-      sx={{
-        display: "inline-flex",
-        p: 0.5,
-        borderRadius: 999,
-        border: 1,
-        borderColor: "divider",
-        backgroundColor: "action.hover",
-      }}
-    >
-      {WINDOWS.map((w) => {
-        const active = value === w.value;
-        return (
-          <ButtonBase
-            key={w.value}
-            onClick={() => onChange(w.value)}
-             title={w.fullLabel}
-             aria-pressed={active}
-            sx={{
-              px: 2,
-              py: 0.5,
-              borderRadius: 999,
-              color: active ? "background.default" : "text.primary",
-              backgroundColor: active ? "primary.main" : "transparent",
-              transition:
-                "background-color .18s ease, color .18s ease, box-shadow .18s ease",
-              fontFamily: "inherit",
-              fontWeight: 700,
-              letterSpacing: "0.1em",
-              fontSize: "0.82rem",
-              fontVariantNumeric: "tabular-nums",
-              "&:hover": {
-                backgroundColor: active ? "primary.main" : "action.selected",
-              },
-            }}
-          >
-            {w.label}
-          </ButtonBase>
-        );
-      })}
-    </Box>
-  );
+  return <UiSegmentedControl
+    ariaLabel="Time window"
+    value={value}
+    onChange={onChange}
+    options={WINDOWS.map((window) => ({ value: window.value, label: window.label, title: window.fullLabel }))}
+  />;
 }
 
 export function ActivityHeaderMeta({ snapshotAt }) {

@@ -11,7 +11,6 @@ import {
   Paper,
   Select,
   Stack,
-  Tab,
   TableSortLabel,
   Tabs,
   TextField,
@@ -27,7 +26,7 @@ import TrophyCase from "components/TrophyCase";
 import { UserContext } from "Contexts";
 import { useIsPhoneDevice } from "hooks/useIsPhoneDevice";
 import { NameWithAvatar } from "pages/User/UserWidgets";
-import { UiAction, UiDialog, UiIcon, UiPageHeader } from "components/ui";
+import { UiAction, UiDialog, UiIcon, UiPageHeader, UiTabs, UiTab } from "components/ui";
 
 import { TIER_ICONS } from "utils/skillRating";
 import { MIN_RATED_GAMES } from "Constants";
@@ -405,7 +404,7 @@ export default function HallOfFame() {
         <p>Current filters: {filterSummary}{data?.myRank ? ` · Your rank: #${data.myRank}` : ""}</p>
       </UiPageHeader>
 
-      <Tabs
+      <UiTabs
         centered
         value={category}
         onChange={handleCategoryChange}
@@ -417,9 +416,9 @@ export default function HallOfFame() {
         }}
       >
         {CATEGORY_OPTIONS.map((option) => (
-          <Tab key={option.value} label={option.label} value={option.value} />
+          <UiTab key={option.value} label={option.label} value={option.value} />
         ))}
-      </Tabs>
+      </UiTabs>
 
       <Paper elevation={2} sx={{ p: 2 }}>
         <Stack direction="column" spacing={1}>

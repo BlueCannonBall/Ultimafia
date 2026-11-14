@@ -7,7 +7,7 @@ import { PageNav } from "components/Nav";
 import Setup, { SetupManipulationButtons } from "components/Setup";
 import { UserSearchSelect } from "components/Form";
 import HostGameDialogue from "components/HostGameDialogue";
-import { UiAction, UiDialog, UiPending, UiField, UiPageHeader } from "components/ui";
+import { UiAction, UiDialog, UiPending, UiField, UiPageHeader, UiSegmentedControl } from "components/ui";
 import { ActiveGameTypes } from "Constants";
 import { LatestRequest } from "../../../lib/latestRequest";
 import "css/host.css";
@@ -102,8 +102,16 @@ export default function HostBrowser() {
       <UiField fullWidth size="small" type="search" label="Search setups or roles" value={filters.query} onChange={event => change({ query: event.target.value })} />
       <UiAction aria-expanded={advanced} aria-controls="host-filters" onClick={() => setAdvanced(value => !value)}>Filters</UiAction>
     </div>
-    <div className="host-list-choices" role="group" aria-label="Setup collections">{lists.map(option => <UiAction key={option} variant="ghost" aria-pressed={filters.option === option}
-      disabled={!user.loggedIn && ["Yours", "Favorites"].includes(option)} onClick={() => change({ option, query: "", ...(option === "Yours" ? { creatorId: "", creatorName: "" } : {}) })}>{option}</UiAction>)}</div>
+    <UiSegmentedControl
+      ariaLabel="Setup collections"
+      value={filters.option}
+      onChange={(option) => change({ option, query: "", ...(option === "Yours" ? { creatorId: "", creatorName: "" } : {}) })}
+      options={lists.map((option) => ({
+        value: option,
+        label: option,
+        disabled: !user.loggedIn && ["Yours", "Favorites"].includes(option),
+      }))}
+    />
     <div id="host-filters" className="host-filter-fields" hidden={!advanced}>
       <UiField fullWidth size="small" type="number" label="Min slots" value={filters.minSlots} inputProps={{ min: 1, max: filters.maxSlots }} onChange={event => change({ minSlots: Math.max(1, Math.min(filters.maxSlots, Number(event.target.value) || 1)) })} />
       <UiField fullWidth size="small" type="number" label="Max slots" value={filters.maxSlots} inputProps={{ min: filters.minSlots, max: 50 }} onChange={event => change({ maxSlots: Math.min(50, Math.max(filters.minSlots, Number(event.target.value) || 50)) })} />

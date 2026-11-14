@@ -37,7 +37,7 @@
   width: auto;
 }
 .forums .thread-wrapper .post .author-row { margin-top: 6px; }
-.forums .thread-wrapper .post .title { font-size: 24px; margin-bottom: 8px; }
+.forums .thread-wrapper .post .title { font-size: 24px; margin: 0 0 8px; }
 .forum-permalink { display: inline-flex; align-items: center; justify-content: center; min-width: 40px; min-height: 40px; color: var(--um-muted); }
 
 /* Continuous lists, not repeated miniature framed columns. */

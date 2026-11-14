@@ -76,7 +76,7 @@ export default function TutorialPicker() {
         </Typography>
       </Box>
       <Box data-testid="tutorial-setup">
-        <Typography variant="subtitle2" sx={{ opacity: 0.8, mb: 1 }}>
+        <Typography variant="body2" sx={{ opacity: 0.8, mb: 1 }}>
           Frontier Justice (9 players). Tap or hover a role to read it.
         </Typography>
         <Stack
@@ -90,7 +90,9 @@ export default function TutorialPicker() {
           ))}
         </Stack>
       </Box>
-      <Typography variant="h6">Choose your role</Typography>
+      <Typography variant="h2" sx={{ fontSize: "var(--ui-text-heading)", lineHeight: "var(--ui-line-heading)" }}>
+        Choose your role
+      </Typography>
       {error && <div role="alert"><p>{error}</p><UiAction onClick={() => setRetry(value => value + 1)}>Retry</UiAction></div>}
       {!error && !storylines.length && <p>No tutorial roles are available right now.</p>}
       <Grid2 container spacing={{ xs: 1.5, sm: 2 }}>
@@ -106,8 +108,8 @@ export default function TutorialPicker() {
                     <RoleCount role={s.role} gameType="Mafia" />
                   </Box>
                   <Typography
-                    variant="h6"
-                    sx={{ minWidth: 0, flex: 1, lineHeight: 1.25, overflowWrap: "anywhere", fontSize: { xs: "1.1rem", sm: "1.25rem" } }}
+                    variant="h3"
+                    sx={{ minWidth: 0, flex: 1, lineHeight: 1.25, overflowWrap: "anywhere", fontSize: { xs: "1.125rem", sm: "1.25rem" } }}
                   >
                     {s.title}
                   </Typography>
